@@ -71,7 +71,7 @@ learn.fit_one_cycle(8)
 
 Running the code outputs the training loss, validation loss and the error rate for each epoch. We can see that the error rate goes down after every epoch before hitting an error rate of 47% (a 53% accuracy). There is no point in fitting the model with more epochs because we would start over-fitting on our training set. 
 
-![Alt Text](https://keepfloyding.github.io/images/CNN_fit_2.png)
+![Alt Text](https://keepfloyding.github.io/images/CNN_fit.png)
 
 
 I feel kind of mixed about these results. On the one hand, I feel that the performance is impressive given how little work we had to do. If we were randomly trying to guess the label for each image, we would get an accuracy of only 10% so it is considerably better than random. On the other hand, the previous applications of this library saw human-like performance for classifying different breeds of cats. So an accuracy of 53% does feel somewhat a bit disappointing. We can take a look at the results a bit more in detail by seeing the top misclassifications that took place:
