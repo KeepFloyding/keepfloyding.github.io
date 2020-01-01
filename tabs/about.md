@@ -6,15 +6,17 @@ title: About
 # MIT License
 ---
 
-Chemical engineer interested in data science, machine learning and computational modelling. Currently working at [Wood PLC](https://www.woodplc.com)
+I am a chemical engineer interested in data science, machine learning and computational modelling. Some brief points about me:
+
+*  Currently working at [Wood PLC](https://www.woodplc.com)
 as a Process Analytics engineer where I am responsible for all things data. Check out my blog to see what I am currently working on. 
 
-Previously doctoral researcher at Imperial College London looking at building a mathematical model for stroke treatment. 
-Thesis can be found on [Spiral](https://spiral.imperial.ac.uk/handle/10044/1/67674).
-Paper in [Nature](https://www.nature.com/articles/s41598-018-34082-7). 
+* I was previously a doctoral researcher at Imperial College London working on building a mathematical model for stroke treatment. My thesis can be found on [Spiral](https://spiral.imperial.ac.uk/handle/10044/1/67674) along with one of my papers in [Nature](https://www.nature.com/articles/s41598-018-34082-7). 
 
-Previously Data Science Fellow at ASI Data Science (now [Faculty](https://faculty.ai/)). Check out data science work done with [Isaac Physics](https://isaacphysics.org/)
-at 2017 Demo Day: [![IMAGE ALT TEXT](http://img.youtube.com/vi/dKHJwpYSkkw/0.jpg)](http://www.youtube.com/watch?v=dKHJwpYSkkw "Predicting Student Participation in Isaac Physics")
+* Spent some time at ASI Data Science (now [Faculty](https://faculty.ai/)) as a Data Science Fellow and had the opportunity to work with the University of Cambridge. Check out the data science work we did with [Isaac Physics](https://isaacphysics.org/)
+at 2017 Demo Day:
+
+ [![IMAGE ALT TEXT](http://img.youtube.com/vi/dKHJwpYSkkw/0.jpg)](http://www.youtube.com/watch?v=dKHJwpYSkkw "Predicting Student Participation in Isaac Physics")
 
 
 
