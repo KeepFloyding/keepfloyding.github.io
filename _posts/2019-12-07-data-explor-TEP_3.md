@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Finding Process Faults: Exploring the 'Faulty' TEP Dataset
+title:  "Finding Process Faults: Exploring the 'Faulty' TEP Dataset"
 date:   2019-12-07 12:43:03 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
