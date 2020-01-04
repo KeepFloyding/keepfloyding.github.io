@@ -2,14 +2,15 @@
 layout: post
 title:  "i=0; i+=1"
 date:   2019-06-15 07:51:21 +0100
-categories: [Blogging]
+categories: [Blogging, Jekyll]
 tags : ['Jekyll', 'Github Pages']
 ---
 
-Hi there, welcome to my blog. I decided to start this blog to showcase my thoughts, notes and observations in my chosen field of expertise (data science and computational modelling). I hope to produce short posts that you will hopefully find informative and useful in accomplishing your own projects, whatever they be. 
+Welcome to my blog!
 
-To check out my bio, please go the [about](\about) page. 
-I am writing this blog in markdown using Jekyll and hosting it in GitHub pages. I can't recommend it enough. One of the best features is the ease and aesthetics of inserting code snippets such as the ones below. 
+I decided to start this blog to showcase my thoughts, notes and observations in fields relevant to my work (data science, chemical engineering, programming and mathematical modelling). I hope to produce short posts that you will hopefully find informative and potentially useful in accomplishing your own projects, whatever they be. To check out my bio, please go the [About](\tabs\about) page. 
+
+As a quick side note, I am writing this blog in `markdown` using Jekyll and hosting it on GitHub with Github Pages. For style, I am using the excellent Chirpy template developed by [Cotes](https://github.com/cotes2020/jekyll-theme-chirpy), which I can't recommend enough. One of the best features of blogging with Jekyll is the ease and aesthetics of inserting code snippets such as the ones below:
 
 {% highlight python %}
 def hello_world()
