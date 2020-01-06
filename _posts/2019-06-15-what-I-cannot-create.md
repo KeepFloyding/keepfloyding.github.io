@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "i=0; i+=1"
-date:   2019-06-15 07:51:21 +0100
+title: i=0; i+=1
+date: 2019-06-15 07:51:21 +0100
 categories: [Blogging, Jekyll]
-tags : [Blogging, Jekyll ]
+tags: [Blogging, Jekyll]
+seo:
+  date_modified: 2020-01-06 10:31:15 +0200
 ---
 
 Welcome to my blog!
