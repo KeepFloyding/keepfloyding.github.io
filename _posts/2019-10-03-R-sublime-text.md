@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Running R in Sublime Text 3"
-date:   2019-10-03 05:20:13 +0100
+title: Running R in Sublime Text 3
+date: 2019-10-03 05:20:13 +0100
 categories: [Programming, R, IDE, Sublime Text]
-tags : ['Sublime Text', 'R']
+tags: [Programming, R, IDE, Sublime Text]
+seo:
+  date_modified: 2020-01-01 14:10:05 +0200
 ---
 
 # TL;DR

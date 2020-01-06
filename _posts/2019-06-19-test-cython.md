@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Numpy + Cython = Speed"
-date:   2019-06-19 07:51:21 +0100
+title: Numpy + Cython = Speed
+date: 2019-06-19 07:51:21 +0100
 categories: [Optimisation, Cython]
-tags : ['Cython', 'Python', 'Optimisation']
+tags: [Cython, Python, Optimisation]
+seo:
+  date_modified: 2020-01-01 14:10:05 +0200
 ---
 
 # TL;DR

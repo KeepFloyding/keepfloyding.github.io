@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Loading and Exploring the TEP Dataset"
-date:   2019-12-05 12:43:03 +0100
+title: Loading and Exploring the TEP Dataset
+date: 2019-12-05 12:43:03 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
+seo:
+  date_modified: 2020-01-06 09:42:31 +0200
 ---
 
 In the [last blog post](https://keepfloyding.github.io/posts/Ten-East-Proc-Intro/), I explained why the Tennessee Eastman Process (TEP) dataset is commonly used as a benchmark for anomaly detection algorithms for chemical process data. I also mentioned that the open-source dataset can be found [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1) in the Harvard Dataverse archive. In this post, I'll perform some preliminary data exploration of the TEP data to show its main characteristics. 

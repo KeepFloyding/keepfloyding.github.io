@@ -3,7 +3,7 @@ layout: post
 title:  "i=0; i+=1"
 date:   2019-06-15 07:51:21 +0100
 categories: [Blogging, Jekyll]
-tags : ['Jekyll', 'Github Pages']
+tags : [Blogging, Jekyll, Github Pages]
 ---
 
 Welcome to my blog!
