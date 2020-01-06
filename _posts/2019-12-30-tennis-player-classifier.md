@@ -5,7 +5,7 @@ date: 2019-12-30 11:12:15 +0100
 categories: [Machine Learning, Deep Learning, Computer Vision]
 tags: [Machine Learning, Deep Learning, Computer Vision]
 seo:
-  date_modified: 2020-01-04 17:10:01 +0200
+  date_modified: 2020-01-06 10:20:35 +0200
 
 ---
 

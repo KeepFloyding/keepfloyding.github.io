@@ -5,7 +5,7 @@ date: 2019-12-06 10:01:56 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
 seo:
-  date_modified: 2020-01-06 09:42:31 +0200
+  date_modified: 2020-01-06 10:20:35 +0200
 ---
 
 This post continues the data exploration started in the [previous blog post](https://keepfloyding.github.io/posts/data-explor-TEP-1/). Here we will look deeper into the TEP 'faultless' dataset in order to better understand it. 

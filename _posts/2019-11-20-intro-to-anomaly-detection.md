@@ -5,7 +5,7 @@ date: 2019-11-20 12:10:13 +0100
 categories: [Engineering, Anomaly Detection, Machine Learning]
 tags: [Engineering, Anomaly Detection, Machine Learning]
 seo:
-  date_modified: 2020-01-01 14:10:05 +0200
+  date_modified: 2020-01-06 10:20:35 +0200
 ---
 
 In the last few months, I realized that a lot of my time was occupied with anomaly detection of process data. More specifically, given a set of temperature, pressure and flowrate readings, can we detect if the chemical process in question is deviating from normal behaviour, and if yes, can we find what caused it? As a data scientist, this is an incredibly satisfying task to undertake, almost akin to finding Wally in the series of 'Where's Wally' puzzle books.

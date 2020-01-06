@@ -5,7 +5,7 @@ date: 2019-12-07 12:43:03 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
 seo:
-  date_modified: 2020-01-04 17:10:01 +0200
+  date_modified: 2020-01-06 10:20:35 +0200
 ---
 
 In my 2 previous posts, I performed some data exploration on the TEP `faultless` dataset. We found data that contained simulated sensor readings of 52 features describing the behaviour of Tennessee Eastman process during normal operation (whilst also accounting for stochastic variations). This data was then used to determine the upper and lower detection limits of the reactor pressure which can then be applied to catch potential faults. 

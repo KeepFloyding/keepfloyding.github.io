@@ -5,7 +5,7 @@ date: 2019-11-30 10:09:09 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
 seo:
-  date_modified: 2020-01-01 14:10:05 +0200
+  date_modified: 2020-01-06 10:20:35 +0200
 ---
 
 When you look through papers on anomaly detection in the field of process engineering, one name above all others keeps on cropping up: the Tennessee Eastman Process (TEP). The TEP is essentially a real industrial process that was modeled computationally in 1993 by [Downs and Vogel](https://www.sciencedirect.com/science/article/pii/009813549380018I). What makes it especially important is that the data recovered from this study is consistently used for comparing and benchmarking algorithms; in  particular anomaly detection algorithms. As such, I wanted to dedicate a blog post on what exactly this dataset is comprised of and what makes it so special.

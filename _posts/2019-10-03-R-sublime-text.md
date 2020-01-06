@@ -5,7 +5,7 @@ date: 2019-10-03 05:20:13 +0100
 categories: [Programming, R, IDE, Sublime Text]
 tags: [Programming, R, IDE, Sublime Text]
 seo:
-  date_modified: 2020-01-01 14:10:05 +0200
+  date_modified: 2020-01-06 10:20:35 +0200
 ---
 
 # TL;DR
