@@ -1,12 +1,14 @@
 ---
 layout: post
-title:  "Exploring Tennessee Eastman Process Data: Part 1"
+title:  "Loading and Exploring the TEP Dataset"
 date:   2019-12-05 12:43:03 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
 ---
 
-In the [last blog post](https://keepfloyding.github.io/anomaly-detection/process-engineering/model-testing/2019/11/30/Ten-East-Proc-Intro.html), I explained why the Tennessee Eastman Process (TEP) dataset is commonly used as a benchmark for anomaly detection algorithms for chemical process data. I also mentioned that the open-source dataset can be found [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1) in the Harvard Dataverse archive. In this post, I'll perform some preliminary data exploration of the TEP data to show its main characteristics. 
+In the [last blog post](https://keepfloyding.github.io/posts/Ten-East-Proc-Intro/), I explained why the Tennessee Eastman Process (TEP) dataset is commonly used as a benchmark for anomaly detection algorithms for chemical process data. I also mentioned that the open-source dataset can be found [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1) in the Harvard Dataverse archive. In this post, I'll perform some preliminary data exploration of the TEP data to show its main characteristics. 
+
+# Loading the data
 
 As mentioned before, the archive has a 'fault-free' and a 'faulty' dataset that corresponds to whether any faults have been introduced into the simulation model that generated the data. Let's start with the 'fault-free' training dataset. The files have a .RData extension and as such can be loaded into an R environment as follows:
 
@@ -25,6 +27,8 @@ I typically prefer working in Python so I saved the file as a csv so that I can 
 * faultNumber
 
 The variables starting with xmeas correspond to 41 measured variables of the TEP process while the variables starting with xmv correspond to 11 manipulated variables (i.e. parameters that can be controlled by the person operating the process). The values of these variables are determined by a computational simulation of the TEP that runs for 25 hours (for training datasets, 48 hours for the testing dataset). This simulation is run for 500 times each with a different, but non-overlapping number generator state as indicated by the 'simulationRun' column. 
+
+# What does sample, simulationRun and faultNumber mean?
 
 'Sample' in this case refers to each sampled timestep of the 'simulationRun', which for this dataset goes from 1 to 500. Each sample is a 3 minute interval, which multiplied by 500 samples passes the sanity check of the 25 hours stated earlier. Lastly, 'faultNumber' corresponds to which fault was given to each simulation. Since this is the 'fault-free' dataset, this column has a value of 0 for all rows indicating that there is normal operation throughout. I've put some sample python code here for loading and taking a preliminary look at the dataset:
 
@@ -52,6 +56,8 @@ print(df['sample'].max())
 assert len(df)==df['simulationRun'].max()*df['sample'].max(), 'sanity check does not hold'
 {% endhighlight %} 
 
+
+# Renaming XMEAS and XMV variables
 
 Now the first problem that we run into is identifying what each xmeas and each xmv refers to (since they should represent actual physical values). Luckily, [this source](https://www.sciencedirect.com/science/article/pii/S0098135414000969?via%3Dihub) provides what each xmeas and xmv variable refers to. The variables can hence be renamed as follows:
 
@@ -92,7 +98,7 @@ X_dict = {
 'XMEAS_33':'Composition_of_E_purge',
 'XMEAS_34':'Composition_of_F_purge',
 'XMEAS_35':'Composition_of_G_purge',
-'XMEAS_36':'Composition_of_H_purge',
+'XMEAS_36':'Composition_of_H_purge',`
 'XMEAS_37':'Composition_of_D_product',
 'XMEAS_38':'Composition_of_E_product',
 'XMEAS_39':'Composition_of_F_product',

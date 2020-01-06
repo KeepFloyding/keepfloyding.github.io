@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Exploring Tennessee Eastman Process Data: Part 2"
+title:  "Quantifying Normal Operation: Exploring the TEP 'Faultless' Dataset"
 date:   2019-12-06 10:01:56 +0100
 categories: [Engineering, Anomaly Detection, TEP]
 tags: [Engineering, Anomaly Detection, TEP]
 ---
 
-This post continues the data exploration started in the [previous blog post](https://keepfloyding.github.io/anomaly-detection/process-engineering/model-testing/2019/12/05/data-explor-TEP_1.html). Here we will look deeper into the TEP 'fault-less' dataset in order to better understand it. 
+This post continues the data exploration started in the [previous blog post](https://keepfloyding.github.io/posts/data-explor-TEP-1/). Here we will look deeper into the TEP 'faultless' dataset in order to better understand it. 
 
-# Understanding the variables
+# Grouping the sensor readings
 
-We previously loaded the dataset, renamed it with more descriptive variable names and explained the meaning of the 'sample', 'simulationRun' and 'fault' columns. Now we will look at the default values of each variable and see how they change over time for each simulation run. Since we are dealing with 52 different variables (not accounting for the 3 previous ones that were already explained), it is advisable to try to categorize them into different groups to make the data more manageable. A quick look at the column names shows the following possible grouping:
+We previously loaded the dataset, renamed it with more descriptive variable names and explained the meaning of the 'sample', 'simulationRun' and 'fault' columns. Now we will look at the default values of each variable and see how they change over time for each simulation run. Since we are dealing with 52 different variables (not accounting for the 3 previous ones that were already explained), it is advisable to try to categorize them into different groups to make the data more manageable. We can group the columns as follows:
 
 * Pressure (separator, reactor and stripper)
 * Level (separator, reactor and stripper)
@@ -19,8 +19,10 @@ We previously loaded the dataset, renamed it with more descriptive variable name
 * Composition of product stream (2 feed components, both products and 1 by-product)
 * Composition of purge stream (all 8 components)
 * Flowrates (A, D and E feed streams, total reactor feed, fresh feed into stripper, recycle flow into reactor, purge rate, underflow of stripper and separator and amount of steam going into the stripper).
-* Valves (all of the manipulated variables are valves that can be changed from 0 to 100 to regulate the flow of the process as required)
+* Valves (egulate the flow of the process streams as required)
 * Miscallaneous (in this case, only the work done by the compressor).
+
+# Understanding the variables
 
 Let's briefly talk about each group listed above. The pressure, temperature and level variables are naturally used to monitor some of the key process units (in this case the seperator, reactor and stripper). The reactor has a cooling jacket to control the temperature and as such has a tag that monitors the exit temperature of the cooling water. Similarily, the condensor uses cooling water to lower the temperature of the hot stream and thus also montors the exit temperature of the cooling water. 
 
@@ -28,9 +30,9 @@ The composition of 3 main streams is continuously monitored in the TEP: the feed
 
 ![Alt Text](https://keepfloyding.github.io/images/TEP_reaction_scheme.png)
 
-A number of flowrates of the TEP are measured such as the feeds and exits of the main process units. These flowrates can be controlled by the operator by adjusting different valves, which happen to be the 11 manipulated variables in the dataset. Lastly, there is one miscellaneous tag in the dataset which corresponds to the work done by the compressor. 
+A number of flowrates of the TEP are measured such as the feeds and exits of the main process units. These flowrates can sometimes be controlled by the operator by adjusting different valves. Lastly, there is one miscellaneous tag in the dataset which corresponds to the work done by the compressor. 
 
-# Exploring TEP variables
+# Exploring the data
 
 Now finally to the fun part! Let's take a variable, in this case it will be the reactor pressure, and see how it changes over time for simulationRun 1. As we can see in the image below, it seems that the pressure oscillates in a Gaussian fashion around a mean value. 
 
@@ -56,6 +58,8 @@ for run in random.sample(range(1,500),5):
 ![Alt Text](https://keepfloyding.github.io/images/Reactor_pressure_multi.png)
 
 A quick look through the rest of the dataset shows that the other variables behave in a similar fashion to the one see above. Why is this the case? Well it seems that the dataset is highlighting only one normal state of operation for the TEP and is simulating the noise that you would typically find in sensor readings. Each sensor has its own level of accuracy and therefore some tags have a smaller amount of noise than others. This level of noise essentially determines the detection threshold of your anomaly detection method (i.e. it has to be outside the sensor noise level to avoid flagging up too many false positives). 
+
+# Seperating anomalies from noise
 
 Let's try the following approach. We can check if the distribution of the pressure follows a normal distribution by doing a quantile-quantile plot. If we get a relatively straight line, then the distribution can be said to be normal. 
 
