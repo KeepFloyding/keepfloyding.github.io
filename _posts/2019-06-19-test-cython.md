@@ -8,21 +8,12 @@ seo:
   date_modified: 2020-01-06 10:20:35 +0200
 ---
 
-# TL;DR
-
-* Using Cython and Numpy can make your code much faster
-* For our test piece (not too dissimilar from a case-study at my workplace) we got several magnitudes an increase in the execution speed (summary of the times is given below). 
-* Times:
-	* Original Code: 12.75 s 
-	* Cythonised: 9.23 s
-	* Numpy: 0.63 s
-	* Numpy and cythonised: 0.63 s
-
-# Full Article
 
 At work, I was recently given a python code that was developed by a third party and asked to make it faster. The code in question solved an optimisation problem that was essentially selecting the best parameters that would minimise the root mean square error of simulated data from an engineering model with actual measured data from a physical system. 
 
 The problem in this case, was that for our chosen system, it would take the code several days to run on a standard machine. So before we tried to brute force it by using more compuational power, I wanted to see what we could do to speed it up by tweaking the code. Our chosen strategy? Remove all for loops and replace with numpy array operations wherever possible and convert it to Cython. 
+
+# Cythonising
 
 For those who haven't heard of it before, Cython is essentially a manner of getting your python code to run with C-like performance with a minimum of tweaking. It goes hand-in-hand with numpy where the combination of array operations and C compiling can speed your code up by several orders of magnitude. I'll take you through step-by-step of how we went through the problem and got our code 10x faster. 
 
@@ -71,7 +62,11 @@ The Cython code can then be compiled, and called as a package.
 python setup.py build_ext --inplace
 {% endhighlight %}
 
-Running the cython code speeds things up to around 9 s. Just from looking at the code above, you can see some serious bottlenecks. For scientific computing, the use of for loops is generally discouraged due slow performance. As such, let's see how the time compares when we convert the for loops to numpy array operations. For this case all we had to do was change the functions to accept numpy arrays:
+Running the cython code speeds things up to around 9 s. 
+
+# Numpising (or whatever the verb would be to make something numpy readable)
+
+Just from looking at the code above, you can see some serious bottlenecks. For scientific computing, the use of for loops is generally discouraged due slow performance. As such, let's see how the time compares when we convert the for loops to numpy array operations. For this case all we had to do was change the functions to accept numpy arrays:
 
 {% highlight python %}
 # A complicated calculation that we need to perform several times
@@ -85,7 +80,11 @@ def numpied_code(data):
 
 {% endhighlight %}
 
-This alone causes a speedup of over a magnitude to 0.6 s. Next is naturally combining this with Cython to get an even faster performance. In this example, there are significant improvements in the computation time. However, I refer you to an excellent online guide for ways on how Cython can speed up your numpy operations by specifying the variable type <https://cython.readthedocs.io/en/latest/src/tutorial/numpy.html>:
+This alone causes a speedup of over a magnitude to 0.6 s. 
+
+# Numpy + Cython
+
+Next is naturally combining this with Cython to get an even faster performance. In this example, there are no significant improvements in the computation time. However, I refer you to an excellent online guide for ways on how Cython helped me to speed up numpy operations by specifying the variable type and making a few other changes <https://cython.readthedocs.io/en/latest/src/tutorial/numpy.html>:
 
 {% highlight python %}
 import numpy as np
