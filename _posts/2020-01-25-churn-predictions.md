@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using Clickstream Data to Predict User Churn with Machine Learning
-date: 2019-06-19 07:51:21 +0100
+date: 2020-01-25 00:00:00 +0100
 categories: [Machine Learning, Supervised Algorithms, Classification]
 tags: [Machine Learning, Random Forest, Supervised Learning]
 ---
