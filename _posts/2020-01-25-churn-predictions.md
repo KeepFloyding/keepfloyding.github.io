@@ -4,6 +4,8 @@ title: Using Clickstream Data to Predict User Churn
 date: 2020-01-25 00:00:00 +0100
 categories: [Machine Learning, Supervised Algorithms, Classification]
 tags: [Machine Learning, Random Forest, Supervised Learning]
+seo:
+  date_modified: 2020-01-25 17:13:24 +0000
 ---
 
 Happy 2020! When thinking about my next blog post, I thought that it would be good to talk about my time as a data scientist in Isaac Physics. When I was there, we did some cool stuff in trying to define and solve open-ended problems, and found that with simple machine learning algorithms, we were able to do a lot! Having a structured and clean data source like they had can really take you far. 

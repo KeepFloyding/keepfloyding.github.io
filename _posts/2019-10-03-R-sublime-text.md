@@ -5,7 +5,7 @@ date: 2019-10-03 05:20:13 +0100
 categories: [Programming, R, IDE, Sublime Text]
 tags: [Programming, R, IDE, Sublime Text]
 seo:
-  date_modified: 2020-01-06 10:20:35 +0200
+  date_modified: 2020-01-06 10:46:01 +0200
 ---
 
 I use Sublime Text as my IDE of choice for all things not Python. It has a clean interface, it is easy to configure and is reasonably ligthweight. So when I had to develop some code in R for my work, I wanted to use this IDE to run blocks of code, build entire scripts and easily commit them to a shared repo with Git. Searching online, I found that using a combination of 2 packages (SendCode and Terminus) was the best way forward to developing R in Sublime Text 3. 
