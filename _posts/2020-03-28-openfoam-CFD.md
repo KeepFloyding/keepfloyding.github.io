@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Power, flexibility and transparency: OpenFOAM
+title: Power, flexibility and transparency, OpenFOAM
 date: 2020-03-28 00:00:00 +0100
 categories: [Engineering, Computational Modelling, CFD]
 tags: [Engineering, Computational Modelling, CFD]
