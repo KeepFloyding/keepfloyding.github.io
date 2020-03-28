@@ -4,7 +4,7 @@ title: The power, flexibility and transparency of OpenFOAM
 date: 2020-03-28 00:00:00 +0100
 categories: [Engineering, Computational Modelling, CFD]
 tags: [Engineering, Computational Modelling, CFD]
-header-img: "images/anomaly_detection_image.png"
+header-img: "images/openfoam.png"
 seo:
   date_modified: 2020-03-28 16:19:08 +0000
 ---
