@@ -10,22 +10,17 @@ seo:
 
 I love OpenFoam! To those of you who don't know, it is an open source CFD solver that is used widely in academic circles. To me, it sits head and shoulders above every other commercial  CFD software out there. In this article, I talk a little bit about what it is, and why I love it so much.
 
-![](https://upload.wikimedia.org/wikipedia/commons/b/b9/False_color_image_of_the_far_field_of_a_submerged_turbulent_jet.jpg)
+![](https://www.esrtechnology.com/images/Oil_and_gas/openfoam1.PNG)
 
 # What is OpenFoam?
 
-Most engineers, physicists and mathematicians come across the topic of fluid dynamics during their professional careers. It is a field of study that explores the physics behind the movement of fluids. And despite the simpliticy and conciseness of its governing differential equations (e.g. [Navier-Stokes equations](https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness)), they are analytically incredibly difficult to solve. That is unless we make some very basic assumptions. In fact, proving the existence and unqiueness of solutions to the Navier-Stokes equations alone is one of the [Millenium problems](https://www.claymath.org/millennium-problems); a set of open problems in Mathematics with a prize money of $1 million. 
+Most engineers, physicists and mathematicians come across the topic of fluid dynamics during their professional careers. It is a field of study that explores the physics behind the movement of fluids. And despite the simplicity and conciseness of its governing differential equations (e.g. [Navier-Stokes equations](https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness)), they are analytically incredibly difficult to solve. That is unless we make some very basic assumptions. In fact, proving the existence and uniqueness of solutions to the Navier-Stokes equations alone is one of the [Millennium problems](https://www.claymath.org/millennium-problems); a set of open problems in Mathematics with a prize money of $1 million. 
 
-So how can you make use of these equations? Well a lot of the time, we solve these differentiatl equations compuationally, often using an iterative approach to guess a solution and then gradually improving on that guess. We call this field Computational Fluid Dynamics (or CFD for short). Now lucky for us, there exist a plethora of different software purveyors that do all the hard work for us; all we need to do is define our problem, press a button, and we can solve jsut about anything that we want. Off the top of my head (and in no particular order), these are the main contendors:
+So how can you make use of these equations? Well a lot of the time, we solve these differential equations computationally, often using an iterative approach to guess a solution and then gradually improving on that guess. We call this field Computational Fluid Dynamics (or CFD for short). Now lucky for us, there exist a plethora of different software purveyors that do all the hard work for us; all we need to do is define our problem, press a button, and we can solve just about anything that we want. Off the top of my head (and in no particular order), these are the main contenders: Ansys CFX, Ansys Fluent, COMSOL and OpenFoam.
 
-* Ansys CFX
-* Ansys Fluent
-* COMSOL
-* OpenFoam
+So what separates OpenFoam from the rest, and why is is so damn good?
 
-So what seperates OpenFoam from the rest, and why is is so damn good?
-
-# It's Open Source
+# It's open source
 
 Need I say more, things are just so much better when you have the chance to look under the hood and see how something works. Another benefit is that you avoid costly license fees that can deprive you several thousand quid. To make matters worse, they sometimes charge more for more cores (typically over 4)  and if it will be used globally or regionally. None of that silly stuff with OpenFoam, your run wherever, whenever with however many cores you want (I typically did simulations with over 100 cores). 
 
@@ -65,18 +60,18 @@ TEqn.solve();
 `
 
 
-Because the whole thing is written in C++, it uses object oriented programming to automatically allow for easy discretisation. All this requires of you therefore, is simply to call the right object. 
+Because the whole thing is written in C++, it uses object oriented programming to automatically allow for easy discretization. All this requires of you therefore, is simply to call the right object. 
 
 # Its super extensive
-Not only is the code open source and beautiful, it is actually super extensive. There are modules to deal with all types of physics and phenomena, ftom Black-Scholes equation to simulating the flow of magnetic fluids. If you want to write your own code, then that's fine but take a quick look [here](https://www.openfoam.com/documentation/user-guide/standard-libraries.php) at the existing functionality to make your life easier. 
+Not only is the code open source and beautiful, it is actually super extensive. There are modules to deal with all types of physics and phenomena, from Black-Scholes equation to simulating the flow of magnetic fluids. If you want to write your own code, then that's fine but take a quick look [here](https://www.openfoam.com/documentation/user-guide/standard-libraries.php) at the existing functionality to make your life easier. 
 
 
 # It has a python interface
 Don't like dealing in C++. No worries, there is a python interface that you can use to set up your scenarios and manage your machines ([PyFoam](https://github.com/takaakiaoki/PyFoam)). I myself have not used it extensively, but it seems to be well documented and regularly maintained. This interface comes in handy if you need to couple your CFD simulation with other systems (perhaps a machine learning algorithm). A python interface is a good environment to set up some crosstalk.
 
-# But how do I postprocess? 
+# But how do I post process? 
 
-Postprocessing results is a way that you retrieve the results from your CFD simulation to analyse the variable of importance. A lot of the commercial CFd tools a post processing tool embedded in the software ( or alternatively use their own postprocessing tool such as CFDPost). For OpenFoam, we use an open source tool called Paraview which can analyse results and run animations of transient simulations. It's not perfect but it is suitable for most of your needs. It also has a python interface to help you automate tedious postprocessing tasks which can come on handy ( although personally I never got it to work during my PHD years.)
+Post processing results is a way that you retrieve the results from your CFD simulation to analyse the variable of importance. A lot of the commercial CFd tools a post processing tool embedded in the software ( or alternatively use their own post processing tool such as CFDPost). For OpenFoam, we use an open source tool called Paraview which can analyse results and run animations of transient simulations. It's not perfect but it is suitable for most of your needs. It also has a python interface to help you automate tedious postprocessing tasks which can come on handy ( although personally I never got it to work during my PHD years.)
 
 # Stop talking, where do I get started?
 
