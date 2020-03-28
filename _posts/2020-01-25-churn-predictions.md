@@ -5,7 +5,7 @@ date: 2020-01-25 00:00:00 +0100
 categories: [Machine Learning, Supervised Algorithms, Classification]
 tags: [Machine Learning, Random Forest, Supervised Learning]
 seo:
-  date_modified: 2020-02-01 16:30:30 +0000
+  date_modified: 2020-03-28 16:19:08 +0000
 ---
 
 Happy 2020! In this blog post, I will take you through one of the problems that we tackled during my time as a data scientist with the online educational platform [Isaac Physics](https://www.isaacphysics.org). Here we used machine learning to predict the likelihood of user churn (i.e. whether a given user will continue using the platform or will stop using it altogether). With simple ML algorithms, we were able to do a lot, and much of the success boiled down to the clean and structured data repository of clickstream data that IP had. 
