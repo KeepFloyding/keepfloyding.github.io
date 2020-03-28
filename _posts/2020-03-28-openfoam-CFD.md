@@ -8,9 +8,9 @@ seo:
   date_modified: 2020-03-28 16:19:08 +0000
 ---
 
-I love OpenFoam! To those of you who don't know, it is an open source CFD solver that is used widely in academic circles. To me, it sits head and shoulders above every other commercial  CFD software out there. In this article, I talk a little bit about what it is, and why I love it so much?
+I love OpenFoam! To those of you who don't know, it is an open source CFD solver that is used widely in academic circles. To me, it sits head and shoulders above every other commercial  CFD software out there. In this article, I talk a little bit about what it is, and why I love it so much.
 
-[](https://upload.wikimedia.org/wikipedia/commons/b/b9/False_color_image_of_the_far_field_of_a_submerged_turbulent_jet.jpg)
+![](https://upload.wikimedia.org/wikipedia/commons/b/b9/False_color_image_of_the_far_field_of_a_submerged_turbulent_jet.jpg)
 
 # What is OpenFoam?
 
@@ -61,7 +61,8 @@ If I wanted to solve for a scalar transport equation to this, I can simply do it
  - fvm::laplacian(DT, T) 
 );
  
-TEqn.solve();`
+TEqn.solve();
+`
 
 
 Because the whole thing is written in C++, it uses object oriented programming to automatically allow for easy discretisation. All this requires of you therefore, is simply to call the right object. 
