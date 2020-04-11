@@ -114,20 +114,79 @@ app.register_blueprint(mod1, url_prefix='/mod1')
 @app.route('/')
 def hello_world():
 	
-	return __name__
+	return 'hello world!'
 {% endhighlight %}
 
 Now if we go `localhost:5000/mod1`, we should see a simple web page that has the string `hello to mod1`. In this way, you can tag on submodules to your Flask app as you see fit. 
 
-## HTML rendering
+## HTML rendering and Jinja2
+
+To add more rich detail to your html pages you can do a couple of things. You can choose to return an html string from one of your functions and it will be automatically rendered. So for instance, the `hello_world()` function can be changed to:
+
+{%highlight python%}
+@app.route('/')
+def hello_world():
+	return '''
+	<body> 
+	<h1> HTML Heading</h1>
+	<p>HTML paragraph</p>
+	<a href='https:\\www.google.com'>Link to google</a>
+	</body>
+	'''
+{%endhighlight%}
+
+However, embedding HTML code into python code can quickly get messy so a better alernative is simply to generate a seperate file and then redirect python to render using the `render_template` function from Flask. Note that we have to save our index.html under a folder called `templates`. 
+
+{%highlight python%}
+from Flask import render_template
+
+@app.route('/')
+def hello_world():
+	return render_template('index.html')
+{%endhighlight%}
+
+Now for a really super cool functionality of Flask is the use of Jinja to actually embed python code in html. And its syntax is acutally quite easy to use. Say for instance that we have a variable in python that we want to pass into html and change the html page. In this case, say that sometimes I want the web page to say either 'hello' or 'good morning' depending on what time of day it is. In this case, I can just create a variable that takes a string after going through some python logic as follows. We then pass that variable as an additional input into the `render_template` function. 
+
+{%highlight python%}
+from flask import render_template
+import time
+
+@app.route('/')
+def hello_world():
+
+	t = time.localtime()
+	current_time = time.strftime("%H:%M:%S", t)
+
+	return render_template('index.html', current_time=current_time)
+{%endhighlight%}
+
+We can now call that variable in html by using `{{python code in here}}` such as the following:
+{%highlight html%}
+<body> 
+	<h1> Hello world</h1>
+	<p>The time is currently {{current_time}}</p>
+	<a href='https:\\www.google.com'>Link to google</a>
+	</body>
+{%endhighlight%}
+
+Pretty cool right? But what about for and if loops? Their syntax is a little different with a `{%for loop%}` and `{%endfor%}` in between any html code you want to loop through and a `{%if loop%}` and `{%endif%}` for any if statments. So say we want to print the time 10 times, we can just do the following:
+
+{%highlight html%}
+<body> 
+	<h1> Hello world</h1>
+	{%for n in range(10) %}
+	<p>The time is currently {{current_time}}</p>
+	{%endfor%}
+	<a href='https:\\www.google.com'>Link to google</a>
+</body>
+{%endhighlight%}
 
 
+## Managing databases
 
+Odds are that you will want your app to read, write and edit data in a database. This can easily be done for SQL databases using the `SQLAlchemy` package. 
 
-
-
-
-## Alembic and Flask db
+If you already have a
 
 These tools are all about creating the database that will talk with your Flask application. As far as I know there are 2 main ways that you can go around this. You can simply create your SQL database separately and then talk to it with your SQL application or you can build it from your python Flask scripts with Alembic and Flask db.
 
