@@ -162,8 +162,8 @@ def hello_world():
 	return render_template('index.html', current_time=current_time)
 {%endhighlight%}
 
-We can now call that variable in html by using `{{python code in here}}` such as the following:
-{%highlight html%}
+We can now call that variable in html by using \{\{`python code`\}\} such as the following:
+{%highlight python%}
 <body> 
 	<h1> Hello world</h1>
 	<p>The time is currently {{current_time}}</p>
@@ -171,7 +171,7 @@ We can now call that variable in html by using `{{python code in here}}` such as
 	</body>
 {%endhighlight%}
 
-Pretty cool right? But what about for and if loops? Their syntax is a little different with a `{%for loop%}` and `{%endfor%}` in between any html code you want to loop through and a `{%if loop%}` and `{%endif%}` for any if statments. So say we want to print the time 10 times, we can just do the following:
+Pretty cool right? But what about for and if loops? Their syntax is a little different with a {%for n in range(10)%} and {%endfor%} in between any html code you want to loop through and a {%if loop%} and {%endif%} for any if statments. So say we want to print the time 10 times, we can just do the following:
 
 {%highlight html%}
 <body> 
@@ -186,71 +186,74 @@ Pretty cool right? But what about for and if loops? Their syntax is a little dif
 
 ## Managing databases
 
-Odds are that you will want your app to read, write and edit data in a database. This can easily be done for SQL databases using the `SQLAlchemy` package. 
+Odds are that you will want your app to read, write and edit data in a database. This can easily be done for SQL databases using the `SQLAlchemy` package. To get started, simply set up a SQLite database by downloading an opensource db browser like this [one](https://sqlitebrowser.org/), click on create a database insert the following SQL command to create a table of users (with some sample data). 
 
-If you already have a
+{%highlight SQL%}
+CREATE TABLE "my_users" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"name"	TEXT,
+	PRIMARY KEY("id")
+);
 
-These tools are all about creating the database that will talk with your Flask application. As far as I know there are 2 main ways that you can go around this. You can simply create your SQL database separately and then talk to it with your SQL application or you can build it from your python Flask scripts with Alembic and Flask db.
+INSERT INTO my_users (name)
+VALUES ('Henry'),
+		('Alex'),
+		('Richard');
 
-Minimal example here on how to get started...
+{%endhighlight%}
+
+Now you can query your database in Flask using SQL alchemy like so. Add the following code to the `__init__.py` file:
+
+{%highlight python%}
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////my_database.db'
+db = SQLAlchemy(app)
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
 
-# Recipe
+{%endhighlight%}
 
-* Step 1: Pick your database (SQLite, PostgreSQL, MySQL, ... or a non-relational database structure)
-* Step 2: Pick your database communicator. For reading SQL into Python, I struggle to find any alternatives to using SQLAlchemy. It's a great tool for querying and writing data to your SQL database. For instance, here is some sample code below:
+And so now  you can query the users in your database as follows:
 
-`
-Sample SQL alchemy code here
-`
+{%highlight python%}
+from app.models import User
 
-* Step 3: Getting a basic Flask application to run. Now this I probably found to be the least intuitive part since there needs to be a basic struture to how you organise your flask environment. Generally, you would organise it as follows:
-	* App folder
-		* templates
-			* subfolders (jinja templates)
-		* subfolders (such as auth or users)
-			* Python code
-		* index.html
-		* main.py
-	* manage.py (code to initiate your Flask App)
+users = User.query.all()
 
-So for instance, on a very simple level your manage.py folder would look something like this
+for user in Users:
+	print(user.name)
+{%endhighlight%}
 
-`
-manage.py script
-`
+Now with all the tools at your disposal, you can directly embed your database information into your html pages. 
 
-And your main.py script would contain the following:
+## Other tools
 
-`
-main.py
-`
-* Step 4:  Now even less intuitive, getting Flask to communicate with SQLalchemy. This involves creating classes in a seperate models.py script that gets imported into whatever python script thats needed. Then if you want to query the database, you pass that class into the db.request. What is the point of doing this rather than having a simple SQL request? Best answer that I can think of is that you can make it quite versatile and create additional methods to your classes and also do this handy thing called backreferencing which is an elegant way of doing table joins. Then you can just call the property of that user in your python code; pretty neat. 
-* Step 5: Getting Flask to display your page. Really you need to do 2 things: set a link to point to; and then either you render a template or you redirect to a specific url. I don't know the difference between the 2 approaches... really. 
-* Step 6: Writing HTML code (shudder). A very painful part of the process since I regard HTML code as one of the least legible and understandable codes to write and read. Hopefully with templates you don't need to worry too much about this part, but to make it pretty; you need Bootstrap.
-* Step 7: Bootstrap; as far as I know, is just a library of CSS code that you can you use to make your website look awesome. Most of the time; I use this reference and literaly copy and paste bits of code that I need to do stuff like drop-down menus and cards (for the win btw). 
-* Step 8: Organising your Flask code with blueprints... A way to structure different parts of your website...
-* Step 9:Forms; ways to edit information and get user input. 
+There are a whole lot of other tools at your disposal that you can use to jazz up your website. These include things such as:
+
+* user forms (Flask-WTF)
+* Bootstrap to make the website pretty (Flask-Bootstrap4)
+* Login forms to create easy user authentication
+* Flask-Migrate for database initalisation
+
+Amongst a whole lot of other tools. Make sure to check them out when you are extending the functionality of your website. 
 
 
 # Overall architecture
 
-So this is my rough guide to using Flask. No doubt over the next few weeks I'll get that much wiser in learning how to use it better. Here is an architecture overview about how all the different tools communicate with one another. 
+So this is my rough guide to using Flask. My hope is that the take home lesson in this blog is an overview of the architeture around web development in Flask. I present an image below of the overall architecture of this thing to help drive the lesson home. Here is an architecture overview about how all the different tools communicate with one another. 
 
 ![](https://devopedia.org/images/article/140/9072.1547744489.png)
 
-I very well might come back and update this article. Thanks for reading and happy developing; some links below to help you get started.
+Thanks for reading and happy developing; some links below to help you get started.
 
 * https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 * https://flask.palletsprojects.com/en/1.1.x/
 * https://getbootstrap.com/docs/4.4/getting-started/introduction/
 
 
-* `Flask==1.1.2`
-* `Flask-Bootstrap4==4.0.2`
-* `Flask-Login==0.5.0`
-* `Flask-Migrate==2.5.3`
-* `Flask-Moment==0.9.0`
-* `Flask-SQLAlchemy==2.4.1`
-* `Flask-WTF==0.14.3`
