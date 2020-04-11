@@ -4,6 +4,8 @@ title: A 5 minute guide to web development in Flask
 date: 2020-04-04 00:00:00 +0100
 categories: [Programming, Python, Web Development, Flask]
 tags: [Programming, Python, Flask, Web Development]
+seo:
+  date_modified: 2020-04-11 18:00:39 +0100
 ---
 
 Recently at work, I was asked to help develop a website that would be used internally within our company as a means of storing, querying and managing data in a centralized database. This website would be an alternative to the current mode of operation which involved simply sending excel files to one another as a means of sharing information. Because our team has a strong programming background in Python, we decided to implement this tool using [Flask](https://flask.palletsprojects.com/en/1.1.x/). In this blog, I give a quick 5 min holistic overview of how to use this tool amongst many many others for successful web development. 

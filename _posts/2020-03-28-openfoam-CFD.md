@@ -4,9 +4,9 @@ title: The power, flexibility and transparency of OpenFOAM
 date: 2020-03-28 00:00:00 +0100
 categories: [Engineering, Computational Modelling, CFD]
 tags: [Engineering, Computational Modelling, CFD]
-header-img: "images/openfoam.png"
+header-img: images/openfoam.png
 seo:
-  date_modified: 2020-03-28 16:19:08 +0000
+  date_modified: 2020-03-28 18:22:45 +0000
 ---
 
 I love OpenFoam! To those of you who don't know, it is an open source CFD solver that is used widely in academic circles. To me, it sits head and shoulders above every other commercial  CFD software out there. In this article, I talk a little bit about what it is, and why I love it so much.
