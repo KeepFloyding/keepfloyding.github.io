@@ -21,9 +21,7 @@ Before we get started, I will present a quick primer on the essential tools that
 * **Jinja** (a web template engine that helps Python communicate with HTML)
 * **WTForms** (python way of getting user input into the website)
 
-As a quick side note, I should point out the [Django](https://www.djangoproject.com/) is a potential alternative web development tool in Python. Flask and Django are broadly able to perform the same task but have very different underlying functionalities. I have heard that if Flask was a bike, then Django is like a car. The latter has a lot of scaffolding in place to ensure quick web development whereas the other has more flexibility and relies on more 3rd party apps to perform certain functions. In this project we desired flexibility above all else, but we probably could have done this in Django as well.
-
-For a more detailed overview of how to do this, I refer you to Miguel Grinberg's excellent [mega-tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) in using Flask. 
+As a quick side note, I should point out the [Django](https://www.djangoproject.com/) is a potential alternative web development tool in Python. Flask and Django are broadly able to perform the same task but have very different underlying functionalities. I have heard that if Flask was a bike, then Django is like a car. The latter has a lot of scaffolding in place to ensure quick web development whereas the other has more flexibility and relies on more 3rd party apps to perform certain functions. In this project we desired flexibility above all else, but we probably could have done this in Django as well. For a more detailed overview of how to do this, I refer you to Miguel Grinberg's excellent [mega-tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) in using Flask. 
 
 # Functionality
 
@@ -32,10 +30,10 @@ Let's look at each tool separately to see the role that it performs.
 ## Creating a virtual environment with **venv**
 
 Every Python user should be familiar with using this tool. It is essentially a handy way of keeping your Python environments separate from one another when developing different software projects. To create and load your environment (in Linux), you can do the following:
-
-`python -m venv my_python_environment`
-
-`source my_python_environment/bin/activate`
+{% highlight bash %}
+python -m venv my_python_environment
+source my_python_environment/bin/activate
+{% endhighlight	 %}
 
 Then you can use the `pip` package manager to install any packages that you might need. A handy way of doing this is to use a requirements.txt file that lists all the packages and versions that you require. You then install them in your environment with 
 
@@ -45,33 +43,96 @@ If you already have an environment that you have been using, and you want to hav
 
 `pip freeze > requirements.txt`
 
+## Flask 
+
+To create a minimal working example of Flask, you will need to install the following:
+
+`pip install flask`
+
+When you install this python package, you will also install a list of other packages, namely `Werkzeug`, `itsdangerous`, `click`, `MarkupSafe` and `Jinja2`.
+
+Right, let's get started with a simple Flask app. Typically, it would have the following folder hierarchy: 
+
+[insert image of folder heirarchy]
+
+you will have an app folder that contains the main code. Outside of it there will a python file that will initiate the code in that app folder. So say you can create a python file with the name of your app (my_flask_app.py) and it would have the following line: `from app import app`. i.e. from the app folder import the class called app. 
+
+Now as such, inside the app folder there will be an __init__.py script that will instantiate the app object. Inside this script we will simply import the flask package and create the app. 
+
+{% highlight python %}
+from flask import Flask
+
+app = Flask(__name__)
+{% endhighlight %}
+
+
+The variable `__name` will be automatically assigned. All well and good, now how do we create webpages? The index page (and really all flask webpages) can be created as follows (in the same `__init__.py` script :
+
+{% highlight python %}
+@app.route('/home')
+def hello_world():
+	return "hello world"
+{% endhighlight %}
+
+The function is simply a function which returns the string 'hello world'. The command above it refers to something called a decorator which simply provides additional functionality to our function. In this case, the app.route function adds a url to our app class that then executes the hello world function. 
+
+Now to test whether this will run, you go to the same directory as your master script (`my_flask_app.py`) and run the following commands. To start running the Flask app; simply do the following commands (again on Linux), and access localhost:5000 on your web browser. 
+
+{% highlight bash %}
+export FLASK_APP=my_flask_app.py
+flask run
+{% endhighlight %}
+
+If everything has gone well, you should get a simple html page that shows 'hello world'. 
+
+## Flask extensibility with Blueprints
+
+Now the beauty of Flask lies in its easy extensibility. Let's say we wanted to create a submodule that will showcase a different part of our website. We simply create a folder inside the `app` folder that has its own `__init__.py` with the following content:
+
+{% highlight python %}
+from flask import Blueprint
+
+mod1 = Blueprint("mod1",__name__)
+
+@mod1.route('/')
+def print_hello():
+	return 'hello to mod1'
+{% endhighlight %}
+
+Here we define an index page in mod1 that will return another string which will say 'welcome to mod1'.
+
+Now we just need to change our `app/__init__.py` file to the following:
+
+{% highlight python %}
+from flask import Flask
+
+app = Flask(__name__)
+
+from app.mod1 import mod1 
+app.register_blueprint(mod1, url_prefix='/mod1')
+
+@app.route('/')
+def hello_world():
+	
+	return __name__
+{% endhighlight %}
+
+Now if we go `localhost:5000/mod1`, we should see a simple web page that has the string `hello to mod1`. In this way, you can tag on submodules to your Flask app as you see fit. 
+
+## HTML rendering
+
+
+
+
+
+
+
 ## Alembic and Flask db
 
 These tools are all about creating the database that will talk with your Flask application. As far as I know there are 2 main ways that you can go around this. You can simply create your SQL database separately and then talk to it with your SQL application or you can build it from your python Flask scripts with Alembic and Flask db.
 
 Minimal example here on how to get started...
 
-## Flask 
-
-Flask is made up of many different packages, but the key ones that you will probably need are the following:
-
-* `Flask==1.1.2`
-* `Flask-Bootstrap4==4.0.2`
-* `Flask-Login==0.5.0`
-* `Flask-Migrate==2.5.3`
-* `Flask-Moment==0.9.0`
-* `Flask-SQLAlchemy==2.4.1`
-* `Flask-WTF==0.14.3`
-
-A minimal flask environment will typically look something like this. You will have an app folder that contains the main code. Outside of it there will a python file that will initiate the code in that app folder. Inside the app folder there will be an __init__.py script that will instantiate the app object and several folders (with their own __init__.py files) that will refer to the submodules of your website (one for user authentication, another for main, etc). So a simple hello world example would have the following folder structure:
-
-[insert image here]
-
-To start running the Flask app; simply do the following commands (again on Linux), and access localhost:500 on your web browser. 
-`
-export FLASK_APP=manage.py
-flask run
-`
 
 
 # Recipe
@@ -123,3 +184,12 @@ I very well might come back and update this article. Thanks for reading and happ
 * https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 * https://flask.palletsprojects.com/en/1.1.x/
 * https://getbootstrap.com/docs/4.4/getting-started/introduction/
+
+
+* `Flask==1.1.2`
+* `Flask-Bootstrap4==4.0.2`
+* `Flask-Login==0.5.0`
+* `Flask-Migrate==2.5.3`
+* `Flask-Moment==0.9.0`
+* `Flask-SQLAlchemy==2.4.1`
+* `Flask-WTF==0.14.3`
