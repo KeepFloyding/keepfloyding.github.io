@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A 5 minute guide to web development in Flask
+title: A Quick Guide to Web Development in Flask
 date: 2020-04-04 00:00:00 +0100
 categories: [Programming, Python, Web Development, Flask]
 tags: [Programming, Python, Flask, Web Development]
@@ -8,30 +8,30 @@ seo:
   date_modified: 2020-04-11 18:00:39 +0100
 ---
 
-Recently at work, I was asked to help develop a website that would be used internally within our company as a means of storing, querying and managing data in a centralized database. This website would be an alternative to the current mode of operation which involved simply sending excel files to one another as a means of sharing information. Because our team has a strong programming background in Python, we decided to implement this tool using [Flask](https://flask.palletsprojects.com/en/1.1.x/). In this blog, I give a quick 5 min holistic overview of how to use this tool amongst many many others for successful web development. 
+Deploying machine learning shouldn't be hard, and there are many python tools that you can use to bring your models into production. [Flask](https://flask.palletsprojects.com/en/1.1.x/) is a web framework that is incredibly flexible and powerful, and that you can use to accomplish this task. However, the plethora of tools that are out there to manage the different functionalities of your web app can make the whole process confusing. This blog post aims to present a quick holistic overview of how to use Flask amongst many others to ensure successful and stress-free (almost) web development. For a more detailed overview of how to do this, I refer you to Miguel Grinberg's excellent [mega-tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) in using Flask. 
 
 # What tools do I need?
 
-Before we get started, I will present a quick primer on the essential tools that you will need to use alongside Flask. The main ones include:
+Here is a list of essential tools that you will need to use to build your web app. 
 
-* **venv** (a python package to create virtual environments)
-* **Flask** (our Python web development tool)
-* A **SQL** database (where our data is stored)
-* **SQLAlchemy** (a way to read data into our Python environment)
-* **HTML, CSS and Javascript** (our trio of web languages to create pages and user interactivity)
-* **Bootstrap** (a library of CSS code that we can use to make our website more sophisticated)
+* **Python** and **venv** (Python programming language within a virtual environment)
+* **Flask** (a Python web development tool)
 * **Jinja** (a web template engine that helps Python communicate with HTML)
+* **HTML, CSS and Javascript** (a trio of web languages to create web pages)
+* **Bootstrap** (a library of CSS code that can be used to make the web app more sophisticated)
+* **SQL** database 
+* **SQLAlchemy** (a way to read data from the database into the Python environment)
 * **WTForms** (python way of getting user input into the website)
 
-As a quick side note, I should point out the [Django](https://www.djangoproject.com/) is a potential alternative web development tool in Python. Flask and Django are broadly able to perform the same task but have very different underlying functionalities. I have heard that if Flask was a bike, then Django is like a car. The latter has a lot of scaffolding in place to ensure quick web development whereas the other has more flexibility and relies on more 3rd party apps to perform certain functions. In this project we desired flexibility above all else, but we probably could have done this in Django as well. For a more detailed overview of how to do this, I refer you to Miguel Grinberg's excellent [mega-tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) in using Flask. 
+As a quick side note, I should point out the [Django](https://www.djangoproject.com/) is a potential alternative web development tool in Python. Flask and Django are broadly able to perform the same task but have very different underlying functionalities. I have heard that if Flask was a bike, then Django is like a car. The latter has a lot of scaffolding in place to ensure quick web development whereas the other has more flexibility and relies on more 3rd party apps to perform certain functions. More on this discussion can be found [here](https://medium.com/@SteelKiwiDev/flask-vs-django-how-to-understand-whether-you-need-a-hammer-or-a-toolbox-39b8b3a2e4a5).
 
-# Functionality
+# System Architecture
 
-Let's look at each tool separately to see the role that it performs. 
+Each tool listed above communicates with each other as shown in the image below. The web app is served locally at `localhost:5000` using Flask. Python is the backend of the web page and performs 2 vital roles: it communicates with the SQL database using SQLAlchemy (performing both read and write functions) and it renders the html templates using Jinja. The webpages are defined using typical web technologies such as HTML, CSS and Javascript and are enriched stylistically by making use of the awesome Bootstrap library. 
 
-## Creating a virtual environment with **venv**
+![](/images/flask_architecture.png)
 
-Every Python user should be familiar with using this tool. It is essentially a handy way of keeping your Python environments separate from one another when developing different software projects. To create and load your environment (in Linux), you can do the following:
+To get a better appreciation of how each tool performs its role, let's look at some sample code. Before we get started, install Python 3.7 or above and define your virtual environment with `venv`. It is essentially a handy way of keeping your Python environments separate from one another when developing different software projects. To create and load your environment (if using Windows, you can remove source function), you do the following:
 {% highlight bash %}
 python -m venv my_python_environment
 source my_python_environment/bin/activate
@@ -41,25 +41,23 @@ Then you can use the `pip` package manager to install any packages that you migh
 
 `pip install -r requirements.txt`
 
-If you already have an environment that you have been using, and you want to have the same packages in another virtual environment, then you can simply get your requirements.txt file with 
+For the purposes of this tutorial, you can copy and paste the following in a `requirements.txt`
+file:
 
-`pip freeze > requirements.txt`
+* Flask
+* SQLAlchemy
+* other stuff
+
 
 ## Flask 
 
-To create a minimal working example of Flask, you will need to install the following:
-
-`pip install flask`
-
-When you install this python package, you will also install a list of other packages, namely `Werkzeug`, `itsdangerous`, `click`, `MarkupSafe` and `Jinja2`.
-
 Right, let's get started with a simple Flask app. Typically, it would have the following folder hierarchy: 
 
-[insert image of folder heirarchy]
+![](/images/tree_snap.png)
 
-you will have an app folder that contains the main code. Outside of it there will a python file that will initiate the code in that app folder. So say you can create a python file with the name of your app (my_flask_app.py) and it would have the following line: `from app import app`. i.e. from the app folder import the class called app. 
+There will be an app folder that contains the main code. Outside of it there will a python file that will initiate the code in that app folder. So say you can create a python file with the name of your app (`my_flask_app.py`) and it would have the following line: `from app import app`. i.e. from the app folder import the class called app. 
 
-Now as such, inside the app folder there will be an __init__.py script that will instantiate the app object. Inside this script we will simply import the flask package and create the app. 
+Now as such, inside the app folder there will be an `__init__.py` script that will instantiate the app object. Inside this script we will simply import the flask package and create the app. 
 
 {% highlight python %}
 from flask import Flask
@@ -78,14 +76,14 @@ def hello_world():
 
 The function is simply a function which returns the string 'hello world'. The command above it refers to something called a decorator which simply provides additional functionality to our function. In this case, the app.route function adds a url to our app class that then executes the hello world function. 
 
-Now to test whether this will run, you go to the same directory as your master script (`my_flask_app.py`) and run the following commands. To start running the Flask app; simply do the following commands (again on Linux), and access localhost:5000 on your web browser. 
+Now to test whether this will run, you go to the same directory as your master script (`my_flask_app.py`) and run the following commands. To start running the Flask app; simply do the following commands (on windows, you use SET instead of export)"" 
 
 {% highlight bash %}
 export FLASK_APP=my_flask_app.py
 flask run
 {% endhighlight %}
 
-If everything has gone well, you should get a simple html page that shows 'hello world'. 
+Now access localhost:5000 on your web browser and if everything has gone well, you should get a simple html page that shows 'hello world'. 
 
 ## Flask extensibility with Blueprints
 
@@ -243,17 +241,11 @@ There are a whole lot of other tools at your disposal that you can use to jazz u
 
 Amongst a whole lot of other tools. Make sure to check them out when you are extending the functionality of your website. 
 
+# Further reading
 
-# Overall architecture
+So this is my rough guide to using Flask. My hope is that the take home lesson in this blog is an overview of the architeture around web development in Flask. To close, I present to you some resources for going in a bit deeper. Thanks for reading and happy developing; some links below to help you get started:
 
-So this is my rough guide to using Flask. My hope is that the take home lesson in this blog is an overview of the architeture around web development in Flask. I present an image below of the overall architecture of this thing to help drive the lesson home. Here is an architecture overview about how all the different tools communicate with one another. 
-
-![](https://devopedia.org/images/article/140/9072.1547744489.png)
-
-Thanks for reading and happy developing; some links below to help you get started.
-
-* https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
-* https://flask.palletsprojects.com/en/1.1.x/
-* https://getbootstrap.com/docs/4.4/getting-started/introduction/
-
+* [https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+* [https://flask.palletsprojects.com/en/1.1.x/](https://flask.palletsprojects.com/en/1.1.x/)
+* [https://getbootstrap.com/docs/4.4/getting-started/introduction](https://getbootstrap.com/docs/4.4/getting-started/introduction)
 
