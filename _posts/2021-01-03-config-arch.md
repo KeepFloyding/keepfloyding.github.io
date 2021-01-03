@@ -45,3 +45,18 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 Then the output of the above commands should tell you if some other OSs were found. 
+
+# Other packages that I use
+
+The beauty of Arch Linux is that you get a minimal operating system with no bloat. Here are a list of additional packages that I need for day to day user:
+
+* git
+* openssh
+* redshift
+* code (VS code editor)
+* nano
+* vim
+* firefox
+* xcape
+* rofi
+* xfce4 (all the packages)
