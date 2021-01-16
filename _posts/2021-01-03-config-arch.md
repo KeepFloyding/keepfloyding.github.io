@@ -46,7 +46,7 @@ rofi -show drun -kb-cancel 'Control_L+Shift_L+Super_L'
 
 The command launches the `drun` mode of Rofi and the `kb-cancel` flag is there to close Rofi when you hit the `Super` key. Make sure to select a sequence of keys that you are sure won't be used by any other keyboard shortcuts.
 
-You can configure other things like enabling the usage of different modes and changing the appearance of the application. This is all defined in **~/.config/rofi/config.rasi**. Here is a sample config file (shamelessly taken from the Arch Labs distro because of their super cool design):
+You can also configure other settings like enabling the usage of different modes and changing the appearance of the application by creating and editting **~/.config/rofi/config.rasi**. Here is a sample config file (shamelessly taken from the Arch Labs distro because of their super cool design):
 ```
 configuration {
  modi: "window,drun,ssh,file-browser";
@@ -58,4 +58,4 @@ configuration {
  }
  ```
 
- This should give your Rofi application a really cool dark mode feel. Hope this was useful!
+ This should give your Rofi application a really cool dark mode feel. If you need any other pointers, then checkout the excellent Arch Wiki [entry](https://wiki.archlinux.org/index.php/Rofi)  Hope this was useful!
