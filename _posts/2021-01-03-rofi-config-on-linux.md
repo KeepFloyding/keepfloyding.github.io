@@ -38,7 +38,7 @@ To hook it up with your `SUPER` key is quite difficult though, since this key is
 xcape -e 'Super_L=Shift_L|Control_L|Super_L'
 ```
 
-Make sure to autostart the command above on boot so that is enabled every time you log on. Then just add the following command for Rofi in your desktop manager's keyboard bindings but mapped to `Shift_L|Control_L|Super_L` instead of the SUPER key:
+Make sure to autostart the command above on boot so that is enabled every time you log on. Then just add the following command for Rofi in your desktop manager's keyboard bindings but mapped to `Shift_L|Control_L|Super_L` instead of the `SUPER` key:
 
 ```bash
 rofi -show drun -kb-cancel 'Control_L+Shift_L+Super_L'
@@ -58,4 +58,4 @@ configuration {
  }
  ```
 
- This should give your Rofi application a really cool dark mode feel. If you need any other pointers, then checkout the excellent Arch Wiki [entry](https://wiki.archlinux.org/index.php/Rofi)  Hope this was useful!
+ This should give your Rofi application a really cool dark mode feel. If you need any other pointers, then checkout the excellent Arch Wiki [entry](https://wiki.archlinux.org/index.php/Rofi).  Hope this was useful!
