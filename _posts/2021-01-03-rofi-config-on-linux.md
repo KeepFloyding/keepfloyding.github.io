@@ -16,10 +16,10 @@ After several years of distro hopping, I have finally decided to comeback to Lin
 
 # What is Rofi?
 
-[Rofi](https://github.com/davatorium/rofi) is a tool that can be best described as a window-switcher, application launcher and dmenu replacement. I love it for its simplicity and powerful search functionalities. I have configured it so that when you press the SUPER key, you open up the drun mode to search and run an application. You can then use SHIFT + LEFT (or RIGHT) to cycle through other modes such as :
+[Rofi](https://github.com/davatorium/rofi) is a tool that can be best described as a window-switcher, application launcher and dmenu replacement. I love it for its simplicity and powerful search functionalities. I have configured it so that when you press the `SUPER` key, you open up the **drun** mode of Rofi to search and run an application. You can then use `SHIFT + LEFT (or RIGHT)` to cycle through other modes such as :
 * the window swticher which lists the applications running in each workspace
 * file browser to search through files
-* ssh launcher to connect to other machines on my network, 
+* ssh launcher to connect to other machines 
 
 If you want to see it in action, then I can suggest the [Arch Labs](https://archlabslinux.com/) implementation of OpenBox where it is used by default. Otherwise just follow the steps below to configure it on your own system. 
 
@@ -32,21 +32,21 @@ Installation of Rofi on Arch Linux is quite simple:
 sudo pacman -S rofi
 ```
 
-To hook it up with your Super key is quite difficult though, since this key is used as a modifier key to launch other applications. The way around it is to use something called [xcape](https://github.com/alols/xcape). This essentially maps your SUPER key to a more complicated set of keys which you can then implement in the key bindings of your desktop manager. So after you install xcape, you can configure your SUPER key to be something complicated like:
+To hook it up with your `SUPER` key is quite difficult though, since this key is used as a modifier key to launch other applications. The way around it is to use something called [xcape](https://github.com/alols/xcape). This essentially maps your `SUPER` key to a more complicated set of keys which you can then implement in the key bindings of your desktop manager. So after you install xcape, you can configure your `SUPER` key to be something complicated like:
 
 ```bash
 xcape -e 'Super_L=Shift_L|Control_L|Super_L'
 ```
 
-Make sure to autostart the command above on boot so that is enabled everytime you log on. Then just add the following command for Rofi in your desktop manager's keyboard bindings but mapped to `Shift_L|Control_L|Super_L` instead of the SUPER key:
+Make sure to autostart the command above on boot so that is enabled every time you log on. Then just add the following command for Rofi in your desktop manager's keyboard bindings but mapped to `Shift_L|Control_L|Super_L` instead of the SUPER key:
 
 ```bash
 rofi -show drun -kb-cancel 'Control_L+Shift_L+Super_L'
 ```
 
-The command launches the `drun` mode of Rofi and the `kb-cancel` flag is there to close Rofi when you hit the `Super` key. Make sure to select a sequence of keys that you are sure won't be used by any other keyboard shortcuts.
+The command launches the `drun` mode of Rofi and the `kb-cancel` flag is there to close Rofi when you hit the `SUPER` key. Make sure to select a sequence of keys that you are sure won't be used by any other keyboard shortcuts.
 
-You can also configure other settings like enabling the usage of different modes and changing the appearance of the application by creating and editting **~/.config/rofi/config.rasi**. Here is a sample config file (shamelessly taken from the Arch Labs distro because of their super cool design):
+You can also configure other settings like enabling the usage of different modes and changing the appearance of the application by creating and editing **~/.config/rofi/config.rasi**. Here is a sample config file (shamelessly taken from the Arch Labs distro because of their super cool design):
 ```
 configuration {
  modi: "window,drun,ssh,file-browser";
