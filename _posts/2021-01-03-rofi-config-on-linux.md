@@ -9,15 +9,15 @@ seo:
   date_modified: 2020-03-28 16:19:08 +0000
 ---
 
-After several years of distro hopping, I have finally decided to comeback to Linux Arch. I love the lightweight nature and easy customisability of the distribution that makes it great for tinkering. Now every great operating system needs a killer application launcher, and for my OS I decided to use Rofi. In this blog post, I give a quick guide on how to setup Rofi. This should work for any Linux system, but I setup it up for Linux Arch running XFCE4. Hope you enjoy it! :)
+After several years of distro hopping, I have finally decided to come back to Linux Arch. I love the lightweight nature and easy customisability of the distribution that makes it great for tinkering. Now every great operating system (OS) needs a killer application launcher, and for my OS I decided to use Rofi. In this blog post, I give a quick guide on how to setup Rofi. This should work for any Linux system, but I setup it up for Linux Arch running XFCE4. Hope you enjoy it! :)
 
 ![Screenshot of my Rofi setup](https://keepfloyding.github.io/images/os_screenshot.png)
 
 
 # What is Rofi?
 
-[Rofi](https://github.com/davatorium/rofi) is a tool that can be best described as a window-switcher, application launcher and dmenu replacement. I love it for its simplicity and powerful search functionalities. I have configured it so that when you press the `SUPER` key, you open up the **drun** mode of Rofi to search and run an application. You can then use `SHIFT + LEFT (or RIGHT)` to cycle through other modes such as :
-* the window swticher which lists the applications running in each workspace
+[Rofi](https://github.com/davatorium/rofi) is a tool that can be best described as a window-switcher, application launcher and **dmenu** replacement. I love it for its simplicity and powerful search functionalities. I have configured it so that when you press the `SUPER` key, you open up the **drun** mode of Rofi to search and run an application. You can then use `SHIFT + LEFT (or RIGHT)` to cycle through other modes such as :
+* the window switcher which lists the applications running in each workspace
 * file browser to search through files
 * ssh launcher to connect to other machines 
 
