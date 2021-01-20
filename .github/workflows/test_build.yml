@@ -28,7 +28,7 @@ jobs:
         run: sudo apt-get install ruby-full build-essential zlib1g-dev
     
       - name: Install Jekyll and bundler
-        run: gem install jekyll bundler
+        run: sudo gem install jekyll bundler
 
       - name: Install gems
         run: echo $pwd
