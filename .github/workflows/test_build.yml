@@ -47,19 +47,8 @@ jobs:
 
       - name: Install gems
         run: sudo bundle install
-     
-      - name: Run init.sh
-        run: ./init.sh
       
       - name: Perform one-off build of jekyll
         run: bundle exec jekyll build
-      
-      - name: Add/commit changes to changed files
-        run: |
-          git add tags/
-          git add categories/
-          git commit -am "Automated report"
-          git push
-        
        
           
