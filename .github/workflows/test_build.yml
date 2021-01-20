@@ -31,4 +31,7 @@ jobs:
         run: sudo gem install jekyll bundler
 
       - name: Install gems
-        run: echo $pwd
+        run: |
+          pwd
+          ls
+          
