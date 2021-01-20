@@ -23,6 +23,12 @@ jobs:
       # Runs a single command using the runners shell
       - name: Say Hello!
         run: echo Hello, world!
+      
+      - name: Install ruby tools
+        run: apt-get install ruby-full build-essential zlib1g-dev
+    
+      - name: Install Jekyll and bundler
+        run: gem install jekyll bundler
 
       # Runs a set of commands using the runners shell
       - name: Typo CI - Spellcheck Action
