@@ -4,9 +4,9 @@ title: Rofi Configuration for Linux
 date: 2021-01-03 00:00:00 +0100
 categories: [linux, arch, rofi, xfce4]
 tags: [linux, arch, rofi, xfce4]
-header-img: "images/os_screenshot.png"
+header-img: images/os_screenshot.png
 seo:
-  date_modified: 2020-03-28 16:19:08 +0000
+  date_modified: 2021-01-19 17:04:31 +0000
 ---
 
 After several years of distro hopping, I have finally decided to come back to Linux Arch. I love the lightweight nature and easy customisability of the distribution that makes it great for tinkering. Now every great operating system (OS) needs a killer application launcher, and for my OS I decided to use Rofi. In this blog post, I give a quick guide on how to setup Rofi. This should work for any Linux system, but I setup it up for Linux Arch running XFCE4. Hope you enjoy it! :)
