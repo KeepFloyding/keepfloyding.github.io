@@ -23,7 +23,7 @@ You can find out what the device name is by using `lsblk` to list your device tr
 
 2. Boot into installation environment on your desired machine. 
 
-3. Change to your keyboard layout. In British english, it would be:
+3. Change to your keyboard layout. In British English, it would be:
 
 ```
 loadkeys uk.map.gz
@@ -33,7 +33,7 @@ loadkeys uk.map.gz
 
 The list of commands for your boot partition (assuming you want EFI with around half a GB of memory) is simply:
 ```
-fdisk \dev\sdx
+fdisk /dev/sdx
 n
 p 
 1
@@ -62,12 +62,14 @@ cryptsetup -y -v luksFormat /dev/sda2
 cryptsetup open /dev/sda2 cryptroot
 ```
 
-6. Creating and  ounting your file system. In this case, good ol ext4 for root and FAT for EFI. 
+6. Creating and  mounting your file system. In this case, good ol ext4 for root and FAT for EFI. 
 
 ```
 mkfs.ext4 /dev/mapper/cryptroot
 mkfs.fat -F32 /dev/sda1 
 mount /dev/mapper/cryptroot /mnt
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
 ``` 
 
 7. Infer your local time from your internet connection using ntp. 
@@ -90,6 +92,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
  ```
  arch-chroot /mnt
+ ```
 
  11. Change your hostname to something more interesting than **archiso**. 
 
@@ -129,23 +132,33 @@ Name=wlp2s0
 DHCP=yes
 ```
 
-13. Redo mkinitcpio since we are encrypting our system. 
+13. Redo mkinitcpio since we are encrypting our system. **/etc/mkinitcpio.conf**
 
 ```
-HOOKS=(base udev autodetect keyboard consolefont modconf block encrypt filesystems fsck)
+HOOKS=(base udev autodetect keyboard consolefgeont modconf block encrypt filesystems fsck)
 mkinitcpio -P
 ```
 
 14. Set a password for root with `passwd`
 
+
 15. Installing GRUB as a bootloader. 
 
 ```
-sudo pacman -S GRUB
-cryptdevice=/dev/sda2:cryptroot root=/dev/mapper/cryptroot
-grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=GRUB
+```
+
+16. Edit the grub default script to pass the correct kernel parameters that are passed by the bootloader **/etc/default/grub**
+
+```
+GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda2:cryptroot root=/dev/mapper/cryptroot"
+```
+
+```
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
 
 17. Install a few other things
 
@@ -159,3 +172,13 @@ sudo pacman -S git openssh redshift code nano vim firefox xcape rofi xfce4 xclip
 19. Create user so that you don't mess around as root
 
 20. Choose Xfce Session from the menu in a display manager of choice, or add exec startxfce4 to Xinitrc.
+
+21. Configure Audio. Using pulse-audio and pavu control as the front-end. XFCE4 also has a plugin for pulse audio that can be installed.
+
+```
+sudo pacman -S pulseaudio pavu-control
+```
+
+22. Configure bluetooth with bluez and bluez-utils. Bluetooth can then be configured with `bluetoothctl`. 
+
+
