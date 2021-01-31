@@ -157,6 +157,16 @@ Name=wlp2s0
 DHCP=yes
 ```
 
+
+```
+/etc/systemd/network/20-wired.network
+[Match]
+Name=enp1s0
+
+[Network]
+DHCP=yes
+```
+
 13. Redo mkinitcpio since we are encrypting our system and using btrfs. **/etc/mkinitcpio.conf**
 
 ```
@@ -197,12 +207,23 @@ sudo pacman -S git openssh redshift code nano vim firefox xcape rofi xfce4 xclip
 19. Create user so that you don't mess around as root. 
 
 ```
-pacman -S sudo
+pacman -S sudo vi
 useradd -m username
 passwd username
+usermod --append --groups wheel example_user
+visudo
 ```
+
+Uncomment the line to allow members of group wheel to have sudo privleges. 
+
+```
+%wheel ALL=(ALL) ALL
+```
+
+20. Configure Arch Linux. This is a bare-bones install; if you would like to configure a graphical environment as well as other utilities then follow along to the next blog post where I will show how to this with Xorg.
 
 Additional configuration steps:
 * Adding snapshots to GRUB
+* How to use btrfs??? 
 
 
