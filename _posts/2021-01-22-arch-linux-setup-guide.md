@@ -42,8 +42,10 @@ Y
 t
 L
 ef (or whatever the EFI entry is in the list)
-```. 
+```
+
 `n` refers to creating a new partition, `Y` refers to accepting the default suggestion and `t` refers to transforming your partition type. To create your root partition (assuming you are still in the `fdisk` dialogue).
+
 ```
 n
 p
