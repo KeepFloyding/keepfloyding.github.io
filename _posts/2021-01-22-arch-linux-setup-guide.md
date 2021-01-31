@@ -62,15 +62,38 @@ cryptsetup -y -v luksFormat /dev/sda2
 cryptsetup open /dev/sda2 cryptroot
 ```
 
-6. Creating and  mounting your file system. In this case, good ol ext4 for root and FAT for EFI. 
+6. Creating and  mounting your file system. In this case, we will be using btrfs for root and FAT for EFI. 
 
 ```
-mkfs.ext4 /dev/mapper/cryptroot
+mkfs.btrfs /dev/mapper/cryptroot
 mkfs.fat -F32 /dev/sda1 
-mount /dev/mapper/cryptroot /mnt
+mount -t btrfs /dev/mapper/cryptroot /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 ``` 
+
+7. BTRFS configuration. Set parameters to avoid repetition
+
+```
+o_btrfs=defaults,x-mount.mkdir,compress=lzo,ssd,noatime
+```
+
+Creation of btrfs subvolumes is next
+
+```
+btrfs subvolume create /mnt/root
+btrfs subvolume create /mnt/home
+btrfs subvolume create /mnt/snapshots
+```
+
+Then unmount the main system, so that the subvolumes can be mounted instead. 
+
+```
+umount -R /mnt
+mount -t btrs -o subvol=root,$o_btrfs /dev/mapper/cryptroot /mnt
+mount -t btrs -o subvol=home,$o_btrfs /dev/mapper/cryptroot /mnt/home
+mount -t btrs -o subvol=snapshots,$o_btrfs /dev/mapper/cryptroot /mnt/.snapshots
+```
 
 7. Infer your local time from your internet connection using ntp. 
 
@@ -79,7 +102,7 @@ mount /dev/sda1 /mnt/boot
 8. Install the base Arch system with the `pacstrap` command (here just installing the base kernel):
 
 ```
-pacstrap /mnt base linux linux-firmware
+pacstrap /mnt base linux linux-firmware btrfs-progs nano
 ```
 
 9. Generate the filesystem table with `genfstab`. This automatically generates the config file that specifies which devices should be mounted (in **/mnt/etc/fstab**.
@@ -132,10 +155,10 @@ Name=wlp2s0
 DHCP=yes
 ```
 
-13. Redo mkinitcpio since we are encrypting our system. **/etc/mkinitcpio.conf**
+13. Redo mkinitcpio since we are encrypting our system and using btrfs. **/etc/mkinitcpio.conf**
 
 ```
-HOOKS=(base udev autodetect keyboard consolefgeont modconf block encrypt filesystems fsck)
+HOOKS=(base udev autodetect keyboard consolefgeont modconf block encrypt btrfs filesystems fsck)
 mkinitcpio -P
 ```
 
@@ -146,7 +169,7 @@ mkinitcpio -P
 
 ```
 pacman -S grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 ```
 
 16. Edit the grub default script to pass the correct kernel parameters that are passed by the bootloader **/etc/default/grub**
