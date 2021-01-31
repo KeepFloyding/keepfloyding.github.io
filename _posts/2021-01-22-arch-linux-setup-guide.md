@@ -192,7 +192,18 @@ sudo pacman -S git openssh redshift code nano vim firefox xcape rofi xfce4 xclip
 18. Reboot to check if your system can reboot without the iso with `reboot` after using `exit` to quit `chroot`.
 
 
-19. Create user so that you don't mess around as root
+19. Create user so that you don't mess around as root. 
+
+```
+pacman -S sudo
+useradd -m username
+passwd username
+```
+
+Additional configuration steps:
+* Adding snapshots to GRUB
+* Creating graphical enviro
+
 
 20. Choose Xfce Session from the menu in a display manager of choice, or add exec startxfce4 to Xinitrc.
 
