@@ -202,17 +202,5 @@ passwd username
 
 Additional configuration steps:
 * Adding snapshots to GRUB
-* Creating graphical enviro
-
-
-20. Choose Xfce Session from the menu in a display manager of choice, or add exec startxfce4 to Xinitrc.
-
-21. Configure Audio. Using pulse-audio and pavu control as the front-end. XFCE4 also has a plugin for pulse audio that can be installed.
-
-```
-sudo pacman -S pulseaudio pavu-control
-```
-
-22. Configure bluetooth with bluez and bluez-utils. Bluetooth can then be configured with `bluetoothctl`. 
 
 
