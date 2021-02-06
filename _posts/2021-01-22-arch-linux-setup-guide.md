@@ -2,18 +2,18 @@
 layout: post
 title: Fast Arch Linux Setup
 date: 2021-01-03 00:00:00 +0100
-categories: [linux, arch, installation, xfce4]
-tags: [linux, arch, installation, xfce4]
+categories: [linux, arch, installation, btrfs]
+tags: [linux, arch, installation, btrfs]
 header-img: images/arch_btw.png
 seo:
   date_modified: 2021-01-19 17:04:31 +0000
 ---
 
-Setting up Arch Linux is actually surprisingly easy due in great part to the fantastic Arch [Wiki](insert_wiki_link). However, since there are so many one-time commands that need to be executed before you have a workable distribution, it is easy to forget how you set it up in the first place. In this blog post, I outline a quick and simplified setup for Arch Linux all the way up to the xfce graphical environment. 
+Setting up Arch Linux is actually surprisingly easy due in great part to the fantastic Arch [Wiki](https://wiki.archlinux.org/index.php/installation_guide). However, since there are so many one-time commands that need to be executed before you have a workable distribution, it is easy to forget how you set it up in the first place. In this blog post, I outline a quick and simplified setup for Arch Linux all the way up to the xfce graphical environment. 
 
 # Setup Guide
 
-1. Download the Arch Linux iso from [here](insert_download_link) and write it to a usb. It is as simple as using `cp` from the command line:
+1. Download the Arch Linux iso from [here](https://archlinux.org/download/) and write it to a usb. It is as simple as using `cp` from the command line:
 
 ```
 cp path/to/archlinux.iso /dev/sdx
@@ -37,7 +37,7 @@ fdisk /dev/sdx
 n
 p 
 1
-Y
+[ENTER]
 +512M
 t
 L
@@ -50,8 +50,8 @@ ef (or whatever the EFI entry is in the list)
 n
 p
 2
-Y
-Y
+[ENTER]
+[ENTER]
 w
 ```
 
@@ -70,8 +70,6 @@ cryptsetup open /dev/sda2 cryptroot
 mkfs.btrfs /dev/mapper/cryptroot
 mkfs.fat -F32 /dev/sda1 
 mount -t btrfs /dev/mapper/cryptroot /mnt
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
 ``` 
 
 7. BTRFS configuration. Set parameters to avoid repetition
@@ -92,9 +90,16 @@ Then unmount the main system, so that the subvolumes can be mounted instead.
 
 ```
 umount -R /mnt
-mount -t btrs -o subvol=root,$o_btrfs /dev/mapper/cryptroot /mnt
-mount -t btrs -o subvol=home,$o_btrfs /dev/mapper/cryptroot /mnt/home
-mount -t btrs -o subvol=snapshots,$o_btrfs /dev/mapper/cryptroot /mnt/.snapshots
+mount -t btrfs -o subvol=root,$o_btrfs /dev/mapper/cryptroot /mnt
+mount -t btrfs -o subvol=home,$o_btrfs /dev/mapper/cryptroot /mnt/home
+mount -t btrfs -o subvol=snapshots,$o_btrfs /dev/mapper/cryptroot /mnt/.snapshots
+```
+
+Create boot directory and mount it. 
+
+```
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
 ```
 
 7. Infer your local time from your internet connection using ntp. 
@@ -107,7 +112,7 @@ mount -t btrs -o subvol=snapshots,$o_btrfs /dev/mapper/cryptroot /mnt/.snapshots
 pacstrap /mnt base linux linux-firmware btrfs-progs nano
 ```
 
-9. Generate the filesystem table with `genfstab`. This automatically generates the config file that specifies which devices should be mounted (in **/mnt/etc/fstab**.
+9. Generate the filesystem table with `genfstab`. This automatically generates the config file that specifies which devices should be mounted on boot (in **/mnt/etc/fstab**.
 
 ```
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -157,6 +162,7 @@ Name=wlp2s0
 DHCP=yes
 ```
 
+For a wired network, you would create the one below.
 
 ```
 /etc/systemd/network/20-wired.network
