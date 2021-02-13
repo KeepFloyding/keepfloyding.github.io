@@ -13,7 +13,9 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
 # Setup Guide
 
-1. Download the Arch Linux iso from [here](https://archlinux.org/download/) and write it to a usb. It is as simple as using `cp` from the command line:
+## Booting into Installation
+
+* Download the Arch Linux iso from [here](https://archlinux.org/download/) and write it to a usb. It is as simple as using `cp` from the command line:
 
     ```
     cp path/to/archlinux.iso /dev/sdx
@@ -21,15 +23,18 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
     You can find out what the device name is by using `lsblk` to list your device tree.
 
-2. Boot into the installation environment on your desired machine. This can be done by accessing your hardware BIOS so that you boot from usb.
+* Boot into the installation environment on your desired machine. This can be done by accessing your hardware BIOS so that you boot from usb.
 
-3. Change to your keyboard layout. In British English, it would be:
+*  Change to your keyboard layout. In British English, it would be:
 
     ```
     loadkeys uk.map.gz
     ```
 
-4. Do your disk partitioning with `fdisk`. Normally you would want the following 3 separate partitions: root (`\`), `boot` and `swap`. If you don't feel like it, you can just skip having the swap partition (read [this](https://www.lifewire.com/do-you-need-swap-partition-2202049) if you are not sure).
+## Disk Partition and Encryption
+
+
+* Do your disk partitioning with `fdisk`. Normally you would want the following 3 separate partitions: root (`\`), `boot` and `swap`. If you don't feel like it, you can just skip having the swap partition (read [this](https://www.lifewire.com/do-you-need-swap-partition-2202049) if you are not sure).
 
     The list of commands for your boot partition (assuming you want EFI with around half a GB of memory) is simply:
     ```
@@ -57,7 +62,7 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
     The command above just assigns the rest of the space in your disk to root. The `w` at the end writes your changes.
 
-5. Disk encryption time! I would advise every computer user to encrypt their drive just so that your information isn't compromised in case your computer gets stolen (it's ridiculously easy to read information from another hard drive that is not encrypted). Here I go for a simple LUKS (LUKS stands for **Linux Unified Key Setup**) encryption directly on your root partition. The commands are:
+* Disk encryption time! I would advise every computer user to encrypt their drive just so that your information isn't compromised in case your computer gets stolen (it's ridiculously easy to read information from another hard drive that is not encrypted). Here I go for a simple LUKS (LUKS stands for **Linux Unified Key Setup**) encryption directly on your root partition. The commands are:
 
     ```
     cryptsetup -y -v luksFormat /dev/sda2
@@ -66,7 +71,9 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
     You can replace `cryptroot` with another name if you so wish.
 
-6. Creating and  mounting your file system. In this case, we will be using BTRFS for root and FAT for EFI.
+## Creating and Mounting BTRFS
+
+* Creating and  mounting your file system. In this case, we will be using BTRFS for root and FAT for EFI.
 
     ```
     mkfs.btrfs /dev/mapper/cryptroot
@@ -74,7 +81,7 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
     mount -t btrfs /dev/mapper/cryptroot /mnt
     ```
 
-7. BTRFS configuration. Set the following parameters:
+* BTRFS configuration. Set the following parameters:
 
     ```
     o_btrfs=defaults,x-mount.mkdir,compress=lzo,ssd,noatime
@@ -104,29 +111,64 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
     mount /dev/sda1 /mnt/boot
     ```
 
-8. Infer your local time from your internet connection using ntp.
+## Installation and Configuration
 
-    `timedatectl set-ntp true`
-
-9. Install the base Arch system with the `pacstrap` command (here just installing the base kernel):
+* Install the base Arch system with the `pacstrap` command (here just installing the base kernel):
 
     ```
     pacstrap /mnt base linux linux-firmware btrfs-progs nano
     ```
 
-10. Generate the filesystem table with `genfstab`. This automatically generates the config file that specifies which devices should be mounted on boot (in **/mnt/etc/fstab**.
+* Generate the filesystem table with `genfstab`. This automatically generates the config file that specifies which devices should be mounted on boot (in **/mnt/etc/fstab**).
 
     ```
     genfstab -U /mnt >> /mnt/etc/fstab
     ```
 
-11. Enter your arch system as the root user. Now that we have the arch system installed, we can enter it with the `arch-chroot` command:
+* Enter your arch system as the root user. Now that we have the arch system installed, we can enter it with the `arch-chroot` command:
 
     ```
     arch-chroot /mnt
     ```
 
-12. Change your hostname to something more interesting:
+* Redo `mkinitcpio` since we are encrypting our system and using BTRFS. First you have to edit the file **/etc/mkinitcpio.conf** and update the hooks to include `btrfs` and `encrypt`. You should have something like below:
+
+    ```
+    HOOKS=(base udev autodetect keyboard consolefgeont modconf block encrypt btrfs filesystems fsck)
+    ```
+
+    Redo `mkinitcpio` with the following command:
+
+    ```
+    mkinitcpio -P
+    ```
+
+* Set a password for root with `passwd`
+
+* Create a user so that you don't have to log in as root all the time:
+
+    ```
+    pacman -S sudo vi
+    useradd -m username
+    passwd username
+    usermod --append --groups wheel example_user
+    visudo
+    ```
+
+    Uncomment the line to allow members of group wheel to have sudo privleges.
+
+    ```
+    %wheel ALL=(ALL) ALL
+    ```
+
+## Internet Connection
+
+* Infer your local time from your internet connection using ntp.
+
+    `timedatectl set-ntp true`
+
+
+* Change your hostname to something more interesting:
 
     ```
     echo awesome_host >> /etc/hostname
@@ -145,15 +187,14 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
     127.0.1.1	awesome_host
     ```   
 
-13. Configure your internet connect by enabling the systemd network modules.
+* Configure your internet connect by enabling the systemd network modules.
 
     ```
     systemctl enable systemd-resolved   
     systemctl enable systemd-networkd
-
     ```
 
-    Also you need to create these files for wired and wireless connections (replace the name with the the actual name of your network interface device that can be found with `ip link show`).
+    Also you need to create these files for wired and wireless connections (replace the name with the the actual name of your network interface device; this can be found with `ip link show`).
 
     ```
     /etc/systemd/network/20-wired.network
@@ -175,29 +216,16 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
     DHCP=yes
     ```
 
-14. Redo `mkinitcpio` since we are encrypting our system and using btrfs. First you have to edit the file **/etc/mkinitcpio.conf** and update the hooks to include `btrfs` and `encrypt`. You should have something as given below:
+## Bootloader
 
-    ```
-    HOOKS=(base udev autodetect keyboard consolefgeont modconf block encrypt btrfs filesystems fsck)
-    ```
-
-    Redo `mkinitcpio` with the following command:
-
-    ```
-    mkinitcpio -P
-    ```
-
-15. Set a password for root with `passwd`
-
-
-15. Install GRUB as the bootloader.
+* Install GRUB as the bootloader.
 
     ```
     pacman -S grub efibootmgr
     grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
     ```
 
-16. Edit the grub default script to configure the correct kernel parameters that are passed by the bootloader in **/etc/default/grub**. You should edit the `GRUB_CMDLINE_LINUX` entry.
+* Edit the GRUB default script to configure the correct kernel parameters that are passed by the bootloader in **/etc/default/grub**. You can do this by editing the `GRUB_CMDLINE_LINUX` entry.
 
     ```
     GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda2:cryptroot root=/dev/mapper/cryptroot"
@@ -209,23 +237,9 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
     grub-mkconfig -o /boot/grub/grub.cfg
     ```
 
-17. Create a user so that you don't have to log in as root all the time:
+## Conclusion and Next Steps
 
-    ```
-    pacman -S sudo vi
-    useradd -m username
-    passwd username
-    usermod --append --groups wheel example_user
-    visudo
-    ```
-
-    Uncomment the line to allow members of group wheel to have sudo privleges.
-
-    ```
-    %wheel ALL=(ALL) ALL
-    ```
-
-18. You should now be able to `reboot` into your system where you will first be asked to decrypt the hard drive before logging in as the user that you created above.
+* You should now be able to `reboot` into your system where you will first be asked to decrypt the hard drive before logging in as the user that you created above.
 
 
-19. Now you can configure Arch Linux to your liking. This is a bare-bones install; if you would like to configure a graphical environment as well as other utilities then follow along to the next blog post where I will show how to this with Xorg and Wayland.
+* Now you can configure Arch Linux to your liking. This is a bare-bones install; if you would like to configure a graphical environment as well as other utilities then follow along to the next blog post where I will show how to this with Xorg and Wayland.
