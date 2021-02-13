@@ -4,12 +4,14 @@ title: Rapid Arch Linux Setup
 date: 2021-01-03 00:00:00 +0100
 categories: [linux, arch, installation, btrfs]
 tags: [linux, arch, installation, btrfs]
-header-img: images/arch_btw.png
+header-img: images/archbtw.png
 seo:
-  date_modified: 2021-01-19 17:04:31 +0000
+  date_modified: 2021-02-13 17:58:03 +0000
 ---
 
 Setting up Arch Linux is actually surprisingly easy due in great part to the fantastic Arch [Wiki](https://wiki.archlinux.org/index.php/installation_guide). However, since there are so many one-time commands that need to be executed before you have a workable distribution, it is easy to forget how you set it up in the first place. In this blog post, I outline a quick and simplified set up for a minimal Arch Linux install that has an encrypted root and uses the BTRFS file system. I'll cover the set up of the graphical environment in a later blog post.
+
+![Arch btw](https://keepfloyding.github.io/images/arch  btw.png)
 
 # Setup Guide
 
