@@ -241,7 +241,7 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
 ## Modifications for Encrypted Swap
 
-  * You will need to uncomment some lines in  **/etc/crypttab**
+  * You will need to uncomment a line in  **/etc/crypttab** related to the swap partition. You should have something like below:
 
       ```
       # <name>  <device>     <password>     <options>
@@ -292,4 +292,3 @@ I've listed some references that I found super useful in configuring this guide:
 * [Wiki Install](https://wiki.archlinux.org/index.php/installation_guide)
 * [FOSS Install](https://itsfoss.com/install-arch-linux/)
 * [BTRFS Setup](https://github.com/egara/arch-btrfs-installation)
- you have a workable distribution, it is easy to forget how you set it up in the first place. In this blog post, I outline a quick and simplified set up for a minimal Arch Linux install that has an encrypted root and uses the BTRFS file system. I'll cover the set up of the graphical environment in a later blog post.
