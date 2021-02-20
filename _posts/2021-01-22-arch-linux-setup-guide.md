@@ -9,17 +9,6 @@ seo:
   date_modified: 2021-02-13 17:58:03 +0000
 ---
 
-Setting up Arch Linux is actually surprisingly easy due in great part to the fantastic Arch [Wiki](https://wiki.archlinux.org/index.php/installation_guide). However, since there are so many one-time commands that need to be executed before---
-layout: post
-title: Rapid Arch Linux Setup
-date: 2021-01-03 00:00:00 +0100
-categories: [linux, arch, installation, btrfs]
-tags: [linux, arch, installation, btrfs]
-header-img: images/archbtw.png
-seo:
-  date_modified: 2021-02-13 17:58:03 +0000
----
-
 Setting up Arch Linux is actually surprisingly easy due in great part to the fantastic Arch [Wiki](https://wiki.archlinux.org/index.php/installation_guide). However, since there are so many one-time commands that need to be executed before you have a workable distribution, it is easy to forget how you set it up in the first place. In this blog post, I outline a quick and simplified set up for a minimal Arch Linux install that has an encrypted root and uses the BTRFS file system. I'll cover the set up of the graphical environment in a later blog post.
 
 # Setup Guide
@@ -101,7 +90,7 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
     ```
     cryptsetup open --type plain --key-file /dev/urandom /dev/sda2 cryptswap
-    mkswap /dev/mapper/cryptswap
+    mkswap -L swap /dev/mapper/cryptswap
     swapon /dev/mapper/cryptswap
     ```
 
@@ -262,7 +251,7 @@ Setting up Arch Linux is actually surprisingly easy due in great part to the fan
 
       ```
       # <filesystem>    <dir>  <type>  <options>  <dump>  <pass>
-      LABEL=swap  none   swap    defaults   0       0
+      LABEL=swap  none   swap    defaults   0       0t
       ```
 
 ## Bootloader
