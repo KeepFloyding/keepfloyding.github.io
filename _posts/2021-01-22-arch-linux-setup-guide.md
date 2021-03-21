@@ -292,3 +292,4 @@ I've listed some references that I found super useful in configuring this guide:
 * [Wiki Install](https://wiki.archlinux.org/index.php/installation_guide)
 * [FOSS Install](https://itsfoss.com/install-arch-linux/)
 * [BTRFS Setup](https://github.com/egara/arch-btrfs-installation)
+* [Bespinian Install - minimal guide to installing Arch with encryption and Walyand](https://blog.bespinian.io/posts/installing-arch-linux-on-uefi-with-full-disk-encryption/)
