@@ -11,6 +11,9 @@ The previous Arch Linux post looked at setting up a bare-bones headless system w
 
 # Setting up the GUI
 
+![Alt Text](https://keepfloyding.github.io/images/arch_linux_2.png)
+
+
 ## Desktop Environment Installation and Customisation
 
 * For the desktop manager, I really like the simplicity behind XFCE4. It is customisable, easy to configure, lightweight and powerful. You start by simply installing it (along with some goodies).
