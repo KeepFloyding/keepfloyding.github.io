@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Rapid Arch Linux Setup 2 
+title: Arch Linux GUI Setup 
 date: 2021-03-15 00:00:00 +0100
 categories: [linux, arch, installation, xfce4]
 tags: [linux, arch, installation, xfce4]
@@ -86,6 +86,13 @@ The settings will be shared in the Git repo.
     makepkg -si
     ``` 
 
+* Redshift to make the screen easier on the eyes. I don't bother with the geolocation and just set it to have a permanent redshift by adding the following to `.xprofile`
+
+    ```
+    redshift -P -O 3500
+    ```
+
+
 ## Sound and Bluetooth
 
 * Configure Audio. Using pulse-audio and pavu control as the front-end. XFCE4 also has a plugin for pulse audio that can be installed.
@@ -102,6 +109,38 @@ The settings will be shared in the Git repo.
     ```
 
 ## Timeshift (or Snapper)
+
+* One of the good things about using BTRFS is that you can do automatic snapshots with either Snapper or Timeshift. I prefer Timeshift but had trouble building it, so will try with snapper. 
+
+## Grub Configuration
+
+* In order to detect different Operating Systems you might have on your device, you will need `os-prober`. Then you need to mount these drives onto your system before reconfiguring grub.
+    ```
+    sudo pacman -S os-prober
+    sudo mount /dev/sdx /mnt
+    grub-mkconfig -o /boot/grub/grub.cfg
+    ```
+
+    You may need to add the following entry to /etc/default/grub
+
+    ```
+    GRUB_DISABLE_OS_PROBER=false
+    ```
+
+* To make changes to grub, I like using the front-end `grub-customizer`
+    ```
+    sudo pacman -S grub-customizer
+    ```
+
+* Also I remove the `quiet` argument from the kernel parameters in GRUB so that I can see the messages during bootup. 
+
+* Cool Grub themes can be used to make it nicer like here: https://www.gnome-look.org/p/1440862 
+
+## Next Steps and Follow Up
+
+* It's good to start using a Wayland compositor since that is very much the future of Linux computing (many desktop enviroments have a Wayland implementation like KDE and Gnome). I stuggle however to find something analgous to XFCE4 but I will be doing some more research on my end. 
+* Pulse-audio will be superseded by PipeWire. 
+* Other tools and configurations. This isn't a complete set-up guide but it should be good enough as a functional bare-bones implementation of a daily-driver. 
 
 
 
