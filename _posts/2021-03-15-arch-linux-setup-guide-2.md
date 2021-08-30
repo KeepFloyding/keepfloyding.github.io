@@ -7,55 +7,58 @@ tags: [linux, arch, installation, xfce4]
 header-img: images/archbtw.png
 ---
 
-The previous Arch Linux post looked at setting up a bare-bones headless system with BTRFS and an encrypted drive. This post will look at setting up the front-end and making your system more suitable as a daily driver. There are several desktop environments that can be chosen, but here I have focused on simplicity and minimalism so it should be good for older systems. 
+The previous Arch Linux [post](https://keepfloyding.github.io/posts/arch-linux-setup-guide/) looked at setting up a bare-bones headless system with BTRFS and an encrypted drive. This post will look at setting up the front-end and making your system more suitable as a daily driver. There are several desktop environments that can be chosen, but here I have focused on simplicity and minimalism so it should be good for older systems. 
 
 # Setting up the GUI
 
 
 ## Desktop Environment Installation and Customisation
 
-![Alt Text](https://keepfloyding.github.io/images/arch_linux_2.png)
-
-
-* For the desktop manager, I really like the simplicity behind XFCE4. It is customisable, easy to configure, lightweight and powerful. You start by simply installing it (along with some goodies).
+* For the desktop manager, I really like the simplicity behind [Xfce4](https://www.xfce.org/). It is customisable, easy to configure, lightweight and powerful (even though some of the folks at [Late Night Linux](https://latenightlinux.com/) make fun of it for being overly simplistic). I install it along with some goodies for a fuller desktop experience. 
 
     ```
     sudo pacman -S xfce4 xfce4-goodies
     ```
     
-* The default view is not so attractive but this can be easily changed. You can easily change the theming of the window manager by downloading some cool themes from here: https://www.xfce-look.org/p/1099856. Download for instance the `Dracula` tar file and extract it in the `.themes` folder of your home directory. You can them choose this theme in the `Style` tab of the `Appearance` settings manager.
+
+![Alt Text](https://keepfloyding.github.io/images/arch_linux_2.png)
 
 
-* You can do this also for icons and fonts. 
+
+* The default view is not so attractive but this can be easily changed. You can download some cool themes from [here](https://www.xfce-look.org/p/1099856). For instance you can download the `Dracula` tar file and extract it in the `.themes` folder of your home directory. You can them choose this theme in the `Style` tab of the `Appearance` settings manager.
+
+
+* You can do this also for icons and fonts from the same website. However, I am pretty happy with the defaults.  
 
 * For the panel configuration, I like to remove the 2nd panel and adjust the 1st one to have the following:
     * Show only icons for the windows to save on space
-    * Change the menu to only show the mouse xfce4 icon
-    * Configure the panel size
-The settings will be shared in the Git repo. 
+    * Change the menu to only show the xfce4 icon
+    * Configure the panel size to be larger.
+I'll share the config files for this [here](https://github.com/KeepFloyding/keepfloyding.github.io/tree/master/_posts/code/xfce4-config)
 
-* And of course everyone's favourite customisation, changing to a cool background. I like the minimalistic ones like here: https://icanbecreative.com/article/simple-desktop-wallpapers-for-minimalist-lovers/ 
+* And of course everyone's favourite customisation, changing to a cool background. I like the minimalistic ones like [here](https://icanbecreative.com/article/simple-desktop-wallpapers-for-minimalist-lovers/). 
 
 * Keyboard shortcuts! The shortcuts that I like to use are:
-    * Fill window to the left or right (Super + Right Arrow (or Left Arrow))
-    * Maximise window (Super + Up Arrow)
-    * Launch file manager (Super + e)
-    * Launch terminal (Ctrl + Alt + t)
+    * Fill window to the left or right `(Super + Right Arrow (or Left Arrow))`
+    * Maximise window `(Super + Up Arrow)`
+    * Launch file manager `(Super + e)`
+    * Launch terminal `(Ctrl + Alt + t)`
+    * Move window to left/right workspace `(Ctrl + Shift + Alt + Right Arrow (or Left Arrow))`
 
 
 ## Display Manager Installation and Customisation
 
-* For the Display Manager, I like to use LightDM (https://wiki.archlinux.org/title/LightDM). You also need to install a greeter to enable user login. I also install the `lightdm-gtk-greeter-settings` to easily configure the greeter with a GUI. 
+* For the Display Manager, I use LightDM (https://wiki.archlinux.org/title/LightDM). You also need to install a greeter to enable user login. I also install the `lightdm-gtk-greeter-settings` to easily configure the greeter with a GUI. 
 
     ```
     sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter lightdm-gtk-greeter-settings
     ```
 
-* Any customisation can be done with the `lightdm-gtk-greeter-settings`.
+* Any customisation can be done with `lightdm-gtk-greeter-settings`.
 
 ## App Launcher 
 
-* For an efficient workflow, an app launcher that can be used to search and quick launch a desired application is crucial. I wrote a previous post about using Rofi which is absolutely excellent (https://keepfloyding.github.io/posts/rofi-config-on-linux/). However, I am trying out a new app launcher called `Ulauncher` which looks very slick (https://ulauncher.io/). To set it up:
+* For an efficient workflow, an app launcher that can be used to search and quick launchly a desired application is crucial. I wrote a previous [post](https://keepfloyding.github.io/posts/rofi-config-on-linux/) about using Rofi which is absolutely excellent application. However, I am trying out a new app launcher called [`Ulauncher`](https://ulauncher.io/) which looks very slick. To set it up:
 
     ```
     git clone https://aur.archlinux.org/ulauncher.git
@@ -63,7 +66,7 @@ The settings will be shared in the Git repo.
     makepkg -is 
     ```
 
-* Any hot key can be configured to launch Ulauncher. I typically like using the Super key which is used for other shortcuts as well. In a similar manner to a Rofi setup, you can use `xcape` to set a single use press for the Super key using something like:
+* Any hot key can be configured to launch Ulauncher. I typically like using the `Super` key which is used as a modifier key for other shortcuts as well. In a similar manner to a Rofi setup, you can use `xcape` to set a single press use for the Super key using something like:
     ```
     xcape -e 'Super_L=Shift_L|Control_L|Super_L'
     ```
@@ -95,7 +98,7 @@ The settings will be shared in the Git repo.
 
 ## Sound and Bluetooth
 
-* Configure Audio. Using pulse-audio and pavu control as the front-end. XFCE4 also has a plugin for pulse audio that can be installed.
+* Configure Audio. Using pulse-audio and pavu control as the front-end. Xfce4 also has a plugin for pulse audio that can be installed.
 
     ```
     sudo pacman -S pulseaudio pavucontrol
@@ -111,6 +114,30 @@ The settings will be shared in the Git repo.
 ## Timeshift (or Snapper)
 
 * One of the good things about using BTRFS is that you can do automatic snapshots with either Snapper or Timeshift. I prefer Timeshift but had trouble building it, so will try with snapper. 
+
+    ```
+    sudo pacman -S snapper
+    ```
+
+* To create a config for automatic snapshots of your root system, you can do
+    ```
+     snapper -c root create-config /
+    ```
+
+* To create a custom snapshot:
+    ```
+    snapper -c root create --description test_snapshot
+    ```
+
+* All configs are available in `/etc/snapper/configs/`. They can be modified to adjust the snapshot frequency. 
+
+* If you don't have a cron daemon running already, then you can use their own systemd units:
+
+    ```
+    systemctl enable snapper-timeline.timer
+    systemctl enable snapper-cleanup.timer
+    ```
+
 
 ## Grub Configuration
 
@@ -134,7 +161,19 @@ The settings will be shared in the Git repo.
 
 * Also I remove the `quiet` argument from the kernel parameters in GRUB so that I can see the messages during bootup. 
 
-* Cool Grub themes can be used to make it nicer like here: https://www.gnome-look.org/p/1440862 
+* Cool Grub themes can be used to make it nicer like [here](https://www.gnome-look.org/p/1440862). 
+
+* If you want to have the ability to load your previous BTRFS snapshots from the GRUB menu then `grub-btrfs` is a thing. 
+
+    ```
+    sudo pacman -S grub-btrfs
+    grub-mkconfig -o /boot/grub/grub.cfg
+    ```
+To enable automatic updating of grub for latest snapshots, you then need to enable `grub-btrfs.path` as documented [here](https://github.com/Antynea/grub-btrfs). 
+
+    ```
+    systemctl enable grub-btrfs.path
+    ```
 
 ## Next Steps and Follow Up
 
