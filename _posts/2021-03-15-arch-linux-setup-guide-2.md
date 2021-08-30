@@ -2,19 +2,19 @@
 layout: post
 title: Arch Linux GUI Setup 
 date: 2021-03-15 00:00:00 +0100
-categories: [linux, arch, installation, xfce4]
-tags: [linux, arch, installation, xfce4]
+categories: [linux, arch, installation, xfce4, ulauncher, snapper, btrfs, grub]
+tags: [linux, arch, installation, xfce4, ulauncher, snapper, btrfs, grub]
 header-img: images/archbtw.png
 ---
 
-The previous Arch Linux [post](https://keepfloyding.github.io/posts/arch-linux-setup-guide/) looked at setting up a bare-bones headless system with BTRFS and an encrypted drive. This post will look at setting up the front-end and making your system more suitable as a daily driver. There are several desktop environments that can be chosen, but here I have focused on simplicity and minimalism so it should be good for older systems. 
+The previous Arch Linux [post](https://keepfloyding.github.io/posts/arch-linux-setup-guide/) looked at setting up a bare-bones headless system with BTRFS and an encrypted drive. This post will look at setting up the front-end and making your system more suitable as a daily driver. There are several desktop environments that can be chosen, but here I have focused on simplicity and minimalism so it should be suitable for older systems. 
 
 # Setting up the GUI
 
 
 ## Desktop Environment Installation and Customisation
 
-* For the desktop manager, I really like the simplicity behind [Xfce4](https://www.xfce.org/). It is customisable, easy to configure, lightweight and powerful (even though some of the folks at [Late Night Linux](https://latenightlinux.com/) make fun of it for being overly simplistic). I install it along with some goodies for a fuller desktop experience. 
+* For the desktop manager, I really like the simplicity behind [Xfce4](https://www.xfce.org/). It is customisable, easy to configure, lightweight and powerful (even though some of the folks at [Late Night Linux](https://latenightlinux.com/) make fun of it for being overly simplistic). I install it along with some goodies for a more full desktop experience. 
 
     ```
     sudo pacman -S xfce4 xfce4-goodies
@@ -25,7 +25,7 @@ The previous Arch Linux [post](https://keepfloyding.github.io/posts/arch-linux-s
 
 
 
-* The default view is not so attractive but this can be easily changed. You can download some cool themes from [here](https://www.xfce-look.org/p/1099856). For instance you can download the `Dracula` tar file and extract it in the `.themes` folder of your home directory. You can them choose this theme in the `Style` tab of the `Appearance` settings manager.
+* The default view is not so attractive but this can be easily changed. You can download some cool themes from [here](https://www.xfce-look.org/p/1099856). For instance you can download the `Dracula` tar file and extract it in the `.themes` folder of your home directory. You can then choose this theme in the `Style` tab of the `Appearance` settings manager.
 
 
 * You can do this also for icons and fonts from the same website. However, I am pretty happy with the defaults.  
@@ -34,9 +34,10 @@ The previous Arch Linux [post](https://keepfloyding.github.io/posts/arch-linux-s
     * Show only icons for the windows to save on space
     * Change the menu to only show the xfce4 icon
     * Configure the panel size to be larger.
-I'll share the config files for this [here](https://github.com/KeepFloyding/keepfloyding.github.io/tree/master/_posts/code/xfce4-config)
 
-* And of course everyone's favourite customisation, changing to a cool background. I like the minimalistic ones like [here](https://icanbecreative.com/article/simple-desktop-wallpapers-for-minimalist-lovers/). 
+I'll share the config files for this [here](https://github.com/KeepFloyding/keepfloyding.github.io/tree/master/_posts/code/xfce4.tar.gz)
+
+* And of course everyone's favourite customisation, changing to a cool background. I like the minimalistic ones found [here](https://icanbecreative.com/article/simple-desktop-wallpapers-for-minimalist-lovers/). 
 
 * Keyboard shortcuts! The shortcuts that I like to use are:
     * Fill window to the left or right `(Super + Right Arrow (or Left Arrow))`
@@ -51,14 +52,14 @@ I'll share the config files for this [here](https://github.com/KeepFloyding/keep
 * For the Display Manager, I use LightDM (https://wiki.archlinux.org/title/LightDM). You also need to install a greeter to enable user login. I also install the `lightdm-gtk-greeter-settings` to easily configure the greeter with a GUI. 
 
     ```
-    sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter lightdm-gtk-greeter-settings
+    sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
     ```
 
 * Any customisation can be done with `lightdm-gtk-greeter-settings`.
 
 ## App Launcher 
 
-* For an efficient workflow, an app launcher that can be used to search and quick launchly a desired application is crucial. I wrote a previous [post](https://keepfloyding.github.io/posts/rofi-config-on-linux/) about using Rofi which is absolutely excellent application. However, I am trying out a new app launcher called [`Ulauncher`](https://ulauncher.io/) which looks very slick. To set it up:
+* For an efficient workflow, an app launcher that can be used to search and quick launchly a desired application is crucial. I wrote a previous [post](https://keepfloyding.github.io/posts/rofi-config-on-linux/) about using Rofi which is an absolutely excellent application. However, I am trying out a new app launcher called [`Ulauncher`](https://ulauncher.io/) which looks very slick. To set it up:
 
     ```
     git clone https://aur.archlinux.org/ulauncher.git
@@ -141,7 +142,7 @@ I'll share the config files for this [here](https://github.com/KeepFloyding/keep
 
 ## Grub Configuration
 
-* In order to detect different Operating Systems you might have on your device, you will need `os-prober`. Then you need to mount these drives onto your system before reconfiguring grub.
+* In order to detect different operating systems you might have on your device, you will need `os-prober`. Then you need to mount these drives onto your system before reconfiguring grub.
     ```
     sudo pacman -S os-prober
     sudo mount /dev/sdx /mnt
