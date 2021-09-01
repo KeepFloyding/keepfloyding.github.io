@@ -105,11 +105,11 @@ I'll share the config files for this [here](https://github.com/KeepFloyding/keep
     sudo pacman -S pulseaudio pavucontrol
     ```
 
-* Configure bluetooth with bluez and bluez-utils. Bluetooth can then be configured with `bluetoothctl`.
+* Configure bluetooth with bluez and bluez-utils. You also need to install the `pulseaudio-bluetooth` package to enable audio to work over bluetooth. Bluetooth can then be configured with `bluetoothctl`.
 
     ```
-    sudo pacman -S bluez bluez-utils
-    sudo systemctl enable bluetooths
+    sudo pacman -S bluez bluez-utils pulseaudio-bluetooth
+    sudo systemctl enable bluetooth
     ```
 
 ## Timeshift (or Snapper)
