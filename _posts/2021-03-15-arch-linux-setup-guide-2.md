@@ -111,6 +111,15 @@ I'll share the config files for this [here](https://github.com/KeepFloyding/keep
     sudo pacman -S bluez bluez-utils pulseaudio-bluetooth
     sudo systemctl enable bluetooth
     ```
+    
+* Pipewire is the latest and greatest multimedia framework in Linux. If you want to give it a try for audio, you can install `pipewire-pulse` which replaces the `pulseaudio` and `pulseaudio-bluetooth` packages. 
+
+    ```
+    sudo pacman -S pipewire-pulse
+    systemctl start --user pipewire-pulse.service
+    ```
+    
+    You should be able to see what is being used with `pactl info`. The `Server Name` should specify that it is running on `Pipewire`. 
 
 ## Timeshift (or Snapper)
 
@@ -179,7 +188,6 @@ To enable automatic updating of grub for latest snapshots, you then need to enab
 ## Next Steps and Follow Up
 
 * It's good to start using a Wayland compositor since that is very much the future of Linux computing (many desktop enviroments have a Wayland implementation like KDE and Gnome). I stuggle however to find something analgous to XFCE4 but I will be doing some more research on my end. 
-* Pulse-audio will be superseded by PipeWire. 
 * Other tools and configurations. This isn't a complete set-up guide but it should be good enough as a functional bare-bones implementation of a daily-driver. 
 
 
