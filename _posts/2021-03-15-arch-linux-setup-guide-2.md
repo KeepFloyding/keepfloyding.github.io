@@ -123,7 +123,23 @@ I'll share the config files for this [here](https://github.com/KeepFloyding/keep
 
 ## Timeshift (or Snapper)
 
-* One of the good things about using BTRFS is that you can do automatic snapshots with either Snapper or Timeshift. I prefer Timeshift but had trouble building it, so will try with snapper. 
+* One of the good things about using BTRFS is that you can do automatic snapshots with Timeshift. You can install it from the AUR with 
+
+    ```
+    yay -S timeshift
+    ```
+    
+* Timeshfit comes with a nice GUI where you can configure the type and frequency of your snapshots. By default it will create snapshots under the `timeshift-btrfs` subvolumes. I believe that in order to set it up, your root and home subvolumes need to be named as `@` and `@home` respectively. 
+
+* If you want to delete any snapshots outside of the GUI, then its handy to have the following commands (`list` is first to see what subvolumes you have):
+
+    ```
+    sudo btrfs subvol list /
+    sudo mount /dev/mapper/cryptroot -o subvol=/
+    sudo btrfs subvol delete [PATH_TO_SUBVOL]
+    ```
+
+* It's also possible to perform this functionality with snapper. I'm not such a big fan of it as I found it inflexible and difficult to use. However, if you want to give it a shot, feel free to try with the following commands:
 
     ```
     sudo pacman -S snapper
