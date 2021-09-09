@@ -201,6 +201,43 @@ To enable automatic updating of grub for latest snapshots, you then need to enab
     systemctl enable grub-btrfs.path
     ```
 
+## Python Code Development 
+
+* I use quite a lot of Python in my work and free time so I install `pyenv` to configure different python versions on my system and `poetry` for package management. Let's start off by install `pyenv` and installing Python 3.8.0.
+
+    ```
+    sudo pacman -S pyenv
+    pyenv install 3.8.0
+    ```
+    
+* You then need to configure `~/.bashrc` to setup pyenv everytime you access the terminal. You add the following 3 lines to it:
+
+    ```
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    ```
+ 
+* Normally, I don't want to use my system's Python version so I set it up to run 3.8.0 by default
+
+    ```
+    pyenv global 3.8.0
+    ```
+    
+* Next up is poetry. There is an install script that is handy to use. 
+
+    ```
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+    ```
+    
+* Make sure that the path to the poetry binaries are specified in your `~/.bashrc` file
+
+    ```
+    export PATH="$HOME/.poetry/bin:$PATH"
+    ```
+    
+* To start up a fresh project you can do simply `poetry new [TEST-PROJECT-NAME]` or you can make use of an existing `.toml` file with `poetry install`. 
+
 ## Next Steps and Follow Up
 
 * It's good to start using a Wayland compositor since that is very much the future of Linux computing (many desktop enviroments have a Wayland implementation like KDE and Gnome). I stuggle however to find something analgous to XFCE4 but I will be doing some more research on my end. 
