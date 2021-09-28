@@ -1,10 +1,12 @@
 ---
 layout: post
-title: Arch Linux GUI Setup 
+title: Arch Linux GUI Setup
 date: 2021-03-15 00:00:00 +0100
 categories: [linux, arch, installation, xfce4, ulauncher, snapper, btrfs, grub]
 tags: [linux, arch, installation, xfce4, ulauncher, snapper, btrfs, grub]
 header-img: images/archbtw.png
+seo:
+  date_modified: 2021-09-09 21:34:21 +0000
 ---
 
 The previous Arch Linux [post](https://keepfloyding.github.io/posts/arch-linux-setup-guide/) looked at setting up a bare-bones headless system with BTRFS and an encrypted drive. This post will look at setting up the front-end and making your system more suitable as a daily driver. There are several desktop environments that can be chosen, but here I have focused on simplicity and minimalism so it should be suitable for older systems. 
